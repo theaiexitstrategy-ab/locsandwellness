@@ -65,19 +65,15 @@
   }
 }
 
-/* Logo stroke-draw: paths use pathLength="1" so a single normalized dash works
-   regardless of true geometry. Runs once on initial page load (no scroll
-   replay). The L stem traces first; the gold flourish follows. */
-@keyframes locDraw { to { stroke-dashoffset: 0; } }
-.loc-draw path {
+/* Logo "pen" reveal: a thick stroke (pathLength=1 → single normalized dash)
+   sweeps along the real logo's L as a mask, so the exact lawco-logo.png art is
+   drawn on stroke-by-stroke. Runs once on initial page load (no scroll replay). */
+@keyframes locPen { to { stroke-dashoffset: 0; } }
+.loc-pen {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: locDraw 1.9s cubic-bezier(0.62, 0, 0.32, 1) forwards;
-}
-.loc-draw .loc-draw-2 {
-  animation-duration: 0.9s;
-  animation-delay: 1.55s;
+  animation: locPen 2.2s cubic-bezier(0.6, 0, 0.32, 1) forwards;
 }
 @media (prefers-reduced-motion: reduce) {
-  .loc-draw path { animation: none; stroke-dashoffset: 0; }
+  .loc-pen { animation: none; stroke-dashoffset: 0; }
 }

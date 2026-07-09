@@ -28,7 +28,7 @@ export default function Nav({ ctaUrl }: { ctaUrl?: string }) {
 
         {/* Center: logo, pinned to true page center */}
         <a href="#top" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <Logo size="nav" showWordmark={false} />
+          <Logo size="nav" />
         </a>
 
         {/* Right: client login + booking CTA */}
