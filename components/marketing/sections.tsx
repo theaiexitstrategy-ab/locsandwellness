@@ -22,27 +22,35 @@ function SectionHead({ eyebrow, title, lede }: { eyebrow: string; title: string;
   );
 }
 
-/* 1 — Hero: the calligraphic "L" draws itself center-screen on landing, with
-   the headline + CTA beneath it, on the ivory background. */
+/* 1 — Hero: a BLACK brand panel (matches the lawco-logo.png treatment) — the
+   white calligraphic "L" draws itself center-screen on landing, above a gold
+   rule, an italic serif line, a gold label, and an emerald diamond. The rest
+   of the site is ivory; this dark hero is the deliberate brand moment. */
 export function Hero({ data }: { data: SiteContent['hero'] }) {
   const heroImage = resolveImage(data.image);
   return (
-    <section id="top" className="relative flex min-h-[calc(100vh-6rem)] flex-col items-center justify-center overflow-hidden bg-site-sand py-16 text-center">
-      <Motif breathe className="pointer-events-none absolute -right-24 -top-24 h-[34rem] w-[34rem] opacity-50" color="#0B5E52" />
-      <Motif className="pointer-events-none absolute -left-40 bottom-[-10rem] h-[28rem] w-[28rem] opacity-30" color="#BF9D45" />
-      <div className="site-wrap relative flex flex-col items-center">
-        <Logo size="hero" animate />
-        <p className="eyebrow mt-8 animate-soft-rise">Scalp · Hair · Loc Wellness</p>
-        <h1 className="mt-4 max-w-3xl animate-soft-rise font-display text-4xl font-semibold leading-[1.1] text-site-wood2 sm:text-5xl">
+    <section id="top" className="relative flex min-h-[calc(100vh-6rem)] flex-col items-center justify-center overflow-hidden bg-[#0C0B09] py-20 text-center">
+      <Motif className="pointer-events-none absolute -right-24 -top-24 h-[34rem] w-[34rem] opacity-[0.12]" color="#BF9D45" />
+      <Motif breathe className="pointer-events-none absolute -left-40 bottom-[-12rem] h-[30rem] w-[30rem] opacity-[0.10]" color="#0B5E52" />
+      <div className="relative flex flex-col items-center px-6">
+        <Logo size="hero" tone="onDark" animate />
+        <span className="mt-9 h-px w-16 bg-site-gold/70 animate-soft-rise" />
+        <h1 className="mt-8 max-w-2xl animate-soft-rise font-display text-3xl font-medium italic leading-snug text-site-sand sm:text-4xl">
           {data.headline}
         </h1>
-        <p className="mt-5 max-w-xl animate-soft-rise text-lg text-site-muted">{data.tagline}</p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4 animate-soft-rise">
+        <p className="mt-5 max-w-md animate-soft-rise text-base text-site-sand/70">{data.tagline}</p>
+        <p className="mt-7 animate-soft-rise text-xs font-semibold uppercase tracking-[0.28em] text-site-gold">
+          A Locs &amp; Wellness Co. Experience
+        </p>
+        <span className="mt-5 animate-soft-rise text-[#12907B]">◆</span>
+        <div className="mt-9 flex flex-wrap items-center justify-center gap-4 animate-soft-rise">
           <a href={data.ctaUrl || BOOKING_URL} target="_blank" rel="noopener noreferrer" className="btn-primary text-base">{data.cta}</a>
-          <a href="#quiz" className="btn-outline">Take the wellness quiz</a>
+          <a href="#quiz" className="inline-flex items-center justify-center rounded-full border border-site-gold/40 px-6 py-2.5 font-medium text-site-sand transition hover:bg-white/5">
+            Take the wellness quiz
+          </a>
         </div>
         {heroImage && (
-          <Media src={data.image} label="Hero photo" className="mt-14 aspect-[16/9] w-full max-w-3xl overflow-hidden rounded-[2rem] shadow-sm" imgClassName="rounded-[2rem]" />
+          <Media src={data.image} label="Hero photo" className="mt-14 aspect-[16/9] w-full max-w-3xl overflow-hidden rounded-[2rem]" imgClassName="rounded-[2rem]" />
         )}
       </div>
     </section>

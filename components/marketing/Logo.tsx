@@ -18,9 +18,13 @@ export default function Logo({
   className = '',
   size = 'hero',
   animate = false,
-}: { className?: string; size?: 'nav' | 'hero'; animate?: boolean }) {
+  tone = 'onLight',
+}: { className?: string; size?: 'nav' | 'hero'; animate?: boolean; tone?: 'onDark' | 'onLight' }) {
   const uid = size; // one hero + one nav per page → ids stay unique
   const dim = size === 'hero' ? 'h-40 w-auto sm:h-52' : 'h-12 w-auto';
+  // Brand mark is white-on-black. On a dark surface keep it its true warm white;
+  // on an ivory surface recolor to near-black so it stays legible.
+  const fill = tone === 'onDark' ? '#F6F2E9' : '#15120D';
   return (
     <svg
       viewBox="75 15 350 300"
@@ -42,7 +46,7 @@ export default function Logo({
         )}
       </defs>
       <g mask={animate ? `url(#penReveal-${uid})` : undefined}>
-        <rect x="0" y="0" width="500" height="500" fill="#15120D" mask={`url(#logoShape-${uid})`} />
+        <rect x="0" y="0" width="500" height="500" fill={fill} mask={`url(#logoShape-${uid})`} />
       </g>
     </svg>
   );
