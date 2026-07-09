@@ -12,6 +12,7 @@
   :root {
     --ivory: #F5F0E3; --black: #15120D; --gold: #BF9D45; --emerald: #0B5E52;
   }
+  html { background: #F5F0E3; }
   body {
     background: #F5F0E3;
     color: #201C15;
@@ -65,14 +66,18 @@
 }
 
 /* Logo stroke-draw: paths use pathLength="1" so a single normalized dash works
-   regardless of true geometry. Runs once on load (no scroll replay). */
+   regardless of true geometry. Runs once on initial page load (no scroll
+   replay). The L stem traces first; the gold flourish follows. */
 @keyframes locDraw { to { stroke-dashoffset: 0; } }
 .loc-draw path {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: locDraw 1.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation: locDraw 1.9s cubic-bezier(0.62, 0, 0.32, 1) forwards;
 }
-.loc-draw .loc-draw-2 { animation-delay: 0.5s; }
+.loc-draw .loc-draw-2 {
+  animation-duration: 0.9s;
+  animation-delay: 1.55s;
+}
 @media (prefers-reduced-motion: reduce) {
   .loc-draw path { animation: none; stroke-dashoffset: 0; }
 }

@@ -11,7 +11,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   await requireAdmin();
   return (
     <div className="min-h-screen">
-      <LocsNav title="Locs & Wellness · Admin" links={[{ href: '/locs/admin', label: 'Clients' }]} />
+      <LocsNav title="Locs & Wellness · Admin" links={[{ href: '/locs/admin', label: 'Clients' }, { href: '/locs/admin/website', label: 'Website' }]} />
       <main className="mx-auto max-w-5xl px-5 py-8">{children}</main>
       <div className="mx-auto max-w-5xl px-5"><LocsFooter /></div>
     </div>

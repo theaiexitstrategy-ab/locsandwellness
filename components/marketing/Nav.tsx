@@ -28,13 +28,19 @@ export default function Nav({ ctaUrl }: { ctaUrl?: string }) {
 
         {/* Center: logo, pinned to true page center */}
         <a href="#top" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <Logo size="nav" />
+          <Logo size="nav" showWordmark={false} />
         </a>
 
-        {/* Right: booking CTA */}
-        <a href={ctaUrl || BOOKING_URL} target="_blank" rel="noopener noreferrer" className="btn-primary ml-auto md:ml-0">
-          Book Now
-        </a>
+        {/* Right: client login + booking CTA */}
+        <div className="ml-auto flex items-center gap-4 md:ml-0">
+          {/* Customers reach their portal account from the homepage — no /admin. */}
+          <a href="/locs/signin" className="hidden text-sm font-medium text-site-wood transition hover:text-site-emerald sm:inline">
+            Client Login
+          </a>
+          <a href={ctaUrl || BOOKING_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">
+            Book Now
+          </a>
+        </div>
       </div>
     </header>
   );

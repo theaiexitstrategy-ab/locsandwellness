@@ -1,0 +1,39 @@
+/* © 2026 GoElev8.ai | Aaron Bryant. All rights reserved. Unauthorized use prohibited.
+   Self-contained styles for the site-content editor when it runs INSIDE the
+   /locs portal (which loads its own globals.css, not the marketing stylesheet).
+   Plain CSS on purpose — no @tailwind/@apply — so it can't conflict with the
+   portal's base layer. Only the four component classes AdminApp/fields use. */
+
+.site-editor .card {
+  border-radius: 1.5rem;
+  border: 1px solid #E7DFCC;         /* site-rule */
+  background: #FCF9F1;               /* site-sand2 */
+  box-shadow: 0 1px 0 rgba(21, 18, 13, 0.04);
+}
+
+.site-editor .btn-emerald {
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 9999px; padding: 0.55rem 1.4rem;
+  font-weight: 500; color: #fff; background: #0B5E52;   /* emerald */
+  transition: background 150ms ease;
+}
+.site-editor .btn-emerald:hover { background: #08463C; }
+.site-editor .btn-emerald:disabled { opacity: 0.6; }
+
+.site-editor .btn-outline {
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 9999px; padding: 0.45rem 1.1rem;
+  font-weight: 500; color: #2B2720;
+  border: 1px solid rgba(43, 39, 32, 0.25);
+  background: transparent; cursor: pointer;
+  transition: background 150ms ease;
+}
+.site-editor .btn-outline:hover { background: rgba(43, 39, 32, 0.05); }
+
+.site-editor .pill {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  border-radius: 9999px; padding: 0.5rem 1rem;
+  font-size: 0.875rem; color: #0B5E52;
+  border: 1px solid rgba(11, 94, 82, 0.25);
+  background: rgba(11, 94, 82, 0.05);
+}

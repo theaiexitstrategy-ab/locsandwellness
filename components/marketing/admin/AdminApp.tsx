@@ -9,7 +9,7 @@
 import { useState } from 'react';
 import type { SiteContent, QuizKey } from '@/lib/marketing/content';
 import { SECTION_KEYS } from '@/lib/marketing/content';
-import { saveSection, signOutAction } from '@/app/(admin)/actions';
+import { saveSection } from '@/app/locs/(admin)/admin/website/actions';
 import { Field, Area, Toggle, ImageField, StringList, SectionCard, ItemBox } from './fields';
 
 const QUIZ_KEYS: QuizKey[] = ['sisterlocks', 'traditional', 'large', 'scalp', 'styling'];
@@ -42,17 +42,14 @@ export default function AdminApp({ content, email }: { content: SiteContent; ema
 
   return (
     <div>
-      {/* Top bar */}
-      <header className="sticky top-0 z-30 border-b border-site-rule bg-site-sand/90 backdrop-blur">
+      {/* Editor header (sits below the portal's own admin nav). */}
+      <header className="border-b border-site-rule bg-site-sand2">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-5 py-3">
           <div>
-            <p className="font-display text-lg font-semibold text-site-wood2">Edit your site</p>
-            <p className="text-xs text-site-muted">Signed in as {email}</p>
+            <p className="font-display text-lg font-semibold text-site-wood2">Edit your website</p>
+            <p className="text-xs text-site-muted">Personalize locsandwellness.com · {email}</p>
           </div>
-          <div className="flex items-center gap-2">
-            <a href="/" target="_blank" rel="noopener noreferrer" className="btn-outline text-xs">View site ↗</a>
-            <form action={signOutAction}><button className="btn-outline text-xs" type="submit">Sign out</button></form>
-          </div>
+          <a href="/" target="_blank" rel="noopener noreferrer" className="btn-outline text-xs">View live site ↗</a>
         </div>
         <nav className="mx-auto flex max-w-5xl flex-wrap gap-x-4 gap-y-1 px-5 pb-2.5 text-xs text-site-muted">
           {NAV.map((n) => <a key={n.key} href={`#${n.key}`} className="hover:text-site-emerald">{n.label}</a>)}

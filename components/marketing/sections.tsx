@@ -22,15 +22,16 @@ function SectionHead({ eyebrow, title, lede }: { eyebrow: string; title: string;
   );
 }
 
-/* 1 — Hero: brand logo centered, with the headline + CTA beneath it. */
+/* 1 — Hero: the calligraphic "L" draws itself center-screen on landing, with
+   the headline + CTA beneath it, on the ivory background. */
 export function Hero({ data }: { data: SiteContent['hero'] }) {
   const heroImage = resolveImage(data.image);
   return (
-    <section id="top" className="relative overflow-hidden">
-      <Motif breathe className="pointer-events-none absolute -right-24 -top-24 h-[34rem] w-[34rem] opacity-60" color="#0B5E52" />
-      <Motif className="pointer-events-none absolute -left-40 bottom-[-10rem] h-[28rem] w-[28rem] opacity-40" color="#BF9D45" />
-      <div className="site-wrap relative flex flex-col items-center py-20 text-center md:py-28">
-        <Logo size="hero" className="animate-soft-rise" />
+    <section id="top" className="relative flex min-h-[calc(100vh-6rem)] flex-col items-center justify-center overflow-hidden bg-site-sand py-16 text-center">
+      <Motif breathe className="pointer-events-none absolute -right-24 -top-24 h-[34rem] w-[34rem] opacity-50" color="#0B5E52" />
+      <Motif className="pointer-events-none absolute -left-40 bottom-[-10rem] h-[28rem] w-[28rem] opacity-30" color="#BF9D45" />
+      <div className="site-wrap relative flex flex-col items-center">
+        <Logo size="hero" animate />
         <p className="eyebrow mt-8 animate-soft-rise">Scalp · Hair · Loc Wellness</p>
         <h1 className="mt-4 max-w-3xl animate-soft-rise font-display text-4xl font-semibold leading-[1.1] text-site-wood2 sm:text-5xl">
           {data.headline}
@@ -269,8 +270,8 @@ export function SiteFooter() {
       <div className="site-wrap mt-10 flex flex-col items-center justify-between gap-3 border-t border-site-rule pt-6 text-xs text-site-muted sm:flex-row">
         <span>© {new Date().getFullYear()} The Locs &amp; Wellness Co. All rights reserved.</span>
         <span className="flex items-center gap-4">
-          {/* Discreet staff entry point — routes to the CMS sign-in. */}
-          <a href="/admin" className="text-site-muted/70 hover:text-site-emerald">Staff login</a>
+          {/* Customer portal access — clients sign in to their account here. */}
+          <a href="/locs/signin" className="hover:text-site-emerald">Client login</a>
           <span>Site by <a href="https://goelev8.ai" className="text-site-emerald hover:underline">GoElev8.ai</a></span>
         </span>
       </div>
