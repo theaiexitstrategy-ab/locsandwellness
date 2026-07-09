@@ -1,0 +1,74 @@
+/* © 2026 GoElev8.ai | Aaron Bryant. All rights reserved. Unauthorized use prohibited.
+   Locs & Wellness Co. marketing stylesheet. Scoped to the (marketing) route
+   group; the /locs portal ships its own stylesheet. */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Jost:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --sand: #F5EEDD; --wood: #5C3C24; --red: #CE1B23;
+    --gold: #D9A441; --emerald: #0B5E52;
+  }
+  body {
+    background: #F5EEDD;
+    color: #2A1D12;
+    font-family: 'Jost', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.65;
+  }
+  h1, h2, h3, h4, .font-display { font-family: 'Fraunces', serif; }
+}
+
+@layer components {
+  .site-wrap { @apply mx-auto max-w-6xl px-6; }
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.22em] text-site-gold;
+  }
+  .section-title {
+    @apply font-display text-3xl font-semibold text-site-wood2 sm:text-4xl;
+  }
+  .lede { @apply text-site-muted; }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-site-red px-7 py-3
+           font-medium text-white shadow-sm transition hover:brightness-95 active:scale-[0.98];
+  }
+  .btn-emerald {
+    @apply inline-flex items-center justify-center rounded-full bg-site-emerald px-7 py-3
+           font-medium text-white transition hover:bg-site-emerald2 active:scale-[0.98];
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center rounded-full border border-site-wood/25
+           bg-transparent px-6 py-2.5 font-medium text-site-wood transition hover:bg-site-wood/5;
+  }
+
+  .card {
+    @apply rounded-3xl border border-site-rule bg-site-sand2 shadow-[0_1px_0_rgba(92,60,36,0.04)];
+  }
+  .pill {
+    @apply inline-flex items-center gap-2 rounded-full border border-site-emerald/25
+           bg-site-emerald/5 px-4 py-2 text-sm text-site-emerald;
+  }
+  /* Labeled placeholder media slot — honest "coming soon", never a broken image. */
+  .media-slot {
+    @apply flex items-center justify-center rounded-2xl border border-dashed border-site-wood/25
+           bg-site-wood/[0.04] text-center text-xs uppercase tracking-wider text-site-muted;
+  }
+}
+
+/* Logo stroke-draw: paths use pathLength="1" so a single normalized dash works
+   regardless of true geometry. Runs once on load (no scroll replay). */
+@keyframes locDraw { to { stroke-dashoffset: 0; } }
+.loc-draw path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: locDraw 1.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+.loc-draw .loc-draw-2 { animation-delay: 0.5s; }
+@media (prefers-reduced-motion: reduce) {
+  .loc-draw path { animation: none; stroke-dashoffset: 0; }
+}
