@@ -5,7 +5,6 @@
 // either side. The logo draw-on runs once here on load.
 
 import Logo from './Logo';
-import { BOOKING_URL } from '@/lib/marketing/content';
 
 const LINKS = [
   { href: '#method', label: 'Method' },
@@ -13,7 +12,7 @@ const LINKS = [
   { href: '#about', label: 'About' },
 ];
 
-export default function Nav({ ctaUrl }: { ctaUrl?: string }) {
+export default function Nav() {
   return (
     <header className="relative z-40 border-b border-site-rule/70 bg-site-sand/85 backdrop-blur">
       <div className="site-wrap relative flex h-24 items-center justify-between">
@@ -31,16 +30,10 @@ export default function Nav({ ctaUrl }: { ctaUrl?: string }) {
           <Logo size="nav" />
         </a>
 
-        {/* Right: client login + booking CTA */}
-        <div className="ml-auto flex items-center gap-4 md:ml-0">
-          {/* Customers reach their portal account from the homepage — no /admin. */}
-          <a href="/locs/signin" className="hidden text-sm font-medium text-site-wood transition hover:text-site-emerald sm:inline">
-            Client Login
-          </a>
-          <a href={ctaUrl || BOOKING_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">
-            Book Now
-          </a>
-        </div>
+        {/* Right: client login — customers reach their portal account here. */}
+        <a href="/locs/signin" className="btn-primary ml-auto md:ml-0">
+          Log In
+        </a>
       </div>
     </header>
   );

@@ -19,7 +19,7 @@ export default async function HomePage() {
   const c = await getSiteContent();
   return (
     <>
-      <Nav ctaUrl={c.hero.ctaUrl} />
+      <Nav />
       <main>
         <Hero data={c.hero} />
         <QuizSection data={c.quiz} />
