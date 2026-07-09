@@ -92,13 +92,13 @@ export function ImageField({
               onChange={(e) => { const f = e.target.files?.[0]; if (f) upload(f); e.target.value = ''; }} />
           </label>
           {value && (
-            <button type="button" onClick={() => onChange('')} className="ml-2 text-xs text-site-red hover:underline">
+            <button type="button" onClick={() => onChange('')} className="ml-2 text-xs text-red-600 hover:underline">
               Remove
             </button>
           )}
           <input className={`${inputCls} text-xs`} value={value} placeholder="…or paste an image / video URL"
             onChange={(e) => onChange(e.target.value)} />
-          {err && <p className="mt-1 text-xs text-site-red">{err}</p>}
+          {err && <p className="mt-1 text-xs text-red-600">{err}</p>}
         </div>
       </div>
     </div>
@@ -122,7 +122,7 @@ export function StringList({
               ? <textarea className={`${inputCls} mt-0 flex-1`} rows={2} value={it} onChange={(e) => set(i, e.target.value)} />
               : <input className={`${inputCls} mt-0 flex-1`} value={it} onChange={(e) => set(i, e.target.value)} />}
             <button type="button" onClick={() => remove(i)}
-              className="mt-1 shrink-0 rounded-lg px-2 py-1 text-xs text-site-red hover:bg-site-red/5">Remove</button>
+              className="mt-1 shrink-0 rounded-lg px-2 py-1 text-xs text-red-600 hover:bg-red-50">Remove</button>
           </div>
         ))}
       </div>
@@ -157,7 +157,7 @@ export function SectionCard({
         </div>
         <div className="flex shrink-0 items-center gap-3">
           {state === 'saved' && <span className="text-xs font-medium text-site-emerald">✓ Saved</span>}
-          {state === 'error' && <span className="max-w-[12rem] truncate text-xs text-site-red" title={err ?? ''}>{err}</span>}
+          {state === 'error' && <span className="max-w-[12rem] truncate text-xs text-red-600" title={err ?? ''}>{err}</span>}
           <button type="button" onClick={save} disabled={state === 'saving'} className="btn-emerald text-sm disabled:opacity-60">
             {state === 'saving' ? 'Saving…' : 'Save'}
           </button>
@@ -174,7 +174,7 @@ export function ItemBox({ children, onRemove }: { children: React.ReactNode; onR
     <div className="relative rounded-2xl border border-site-rule bg-white/50 p-4">
       {onRemove && (
         <button type="button" onClick={onRemove}
-          className="absolute right-3 top-3 rounded-lg px-2 py-1 text-xs text-site-red hover:bg-site-red/5">Remove</button>
+          className="absolute right-3 top-3 rounded-lg px-2 py-1 text-xs text-red-600 hover:bg-red-50">Remove</button>
       )}
       <div className="space-y-3">{children}</div>
     </div>

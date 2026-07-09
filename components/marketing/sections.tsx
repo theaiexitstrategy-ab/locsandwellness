@@ -7,7 +7,9 @@
 
 import Motif from './Motif';
 import Media from './Media';
+import Logo from './Logo';
 import Quiz from './Quiz';
+import { resolveImage } from '@/lib/marketing/image';
 import { BOOKING_URL, CONTACT, type SiteContent } from '@/lib/marketing/content';
 
 function SectionHead({ eyebrow, title, lede }: { eyebrow: string; title: string; lede?: string }) {
@@ -20,25 +22,27 @@ function SectionHead({ eyebrow, title, lede }: { eyebrow: string; title: string;
   );
 }
 
-/* 1 — Hero */
+/* 1 — Hero: brand logo centered, with the headline + CTA beneath it. */
 export function Hero({ data }: { data: SiteContent['hero'] }) {
+  const heroImage = resolveImage(data.image);
   return (
     <section id="top" className="relative overflow-hidden">
-      <Motif breathe className="pointer-events-none absolute -right-24 -top-24 h-[34rem] w-[34rem] opacity-70" color="#0B5E52" />
-      <Motif className="pointer-events-none absolute -left-40 bottom-[-10rem] h-[28rem] w-[28rem] opacity-40" color="#D9A441" />
-      <div className="site-wrap relative grid items-center gap-12 py-20 md:grid-cols-2 md:py-28">
-        <div className="animate-soft-rise">
-          <p className="eyebrow">Scalp · Hair · Loc Wellness</p>
-          <h1 className="mt-4 font-display text-4xl font-semibold leading-[1.1] text-site-wood2 sm:text-5xl">
-            {data.headline}
-          </h1>
-          <p className="mt-5 max-w-md text-lg text-site-muted">{data.tagline}</p>
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            <a href={data.ctaUrl || BOOKING_URL} target="_blank" rel="noopener noreferrer" className="btn-primary text-base">{data.cta}</a>
-            <a href="#quiz" className="btn-outline">Take the wellness quiz</a>
-          </div>
+      <Motif breathe className="pointer-events-none absolute -right-24 -top-24 h-[34rem] w-[34rem] opacity-60" color="#0B5E52" />
+      <Motif className="pointer-events-none absolute -left-40 bottom-[-10rem] h-[28rem] w-[28rem] opacity-40" color="#BF9D45" />
+      <div className="site-wrap relative flex flex-col items-center py-20 text-center md:py-28">
+        <Logo size="hero" className="animate-soft-rise" />
+        <p className="eyebrow mt-8 animate-soft-rise">Scalp · Hair · Loc Wellness</p>
+        <h1 className="mt-4 max-w-3xl animate-soft-rise font-display text-4xl font-semibold leading-[1.1] text-site-wood2 sm:text-5xl">
+          {data.headline}
+        </h1>
+        <p className="mt-5 max-w-xl animate-soft-rise text-lg text-site-muted">{data.tagline}</p>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-4 animate-soft-rise">
+          <a href={data.ctaUrl || BOOKING_URL} target="_blank" rel="noopener noreferrer" className="btn-primary text-base">{data.cta}</a>
+          <a href="#quiz" className="btn-outline">Take the wellness quiz</a>
         </div>
-        <Media src={data.image} label="Hero photo / video" className="media-slot aspect-[4/5] w-full animate-soft-rise overflow-hidden rounded-2xl" imgClassName="rounded-2xl" />
+        {heroImage && (
+          <Media src={data.image} label="Hero photo" className="mt-14 aspect-[16/9] w-full max-w-3xl overflow-hidden rounded-[2rem] shadow-sm" imgClassName="rounded-[2rem]" />
+        )}
       </div>
     </section>
   );
@@ -89,7 +93,7 @@ export function Services({ data }: { data: SiteContent['services'] }) {
           {data.map((s, i) => (
             <div key={i} className="card overflow-hidden">
               <Media src={s.image} label={`${s.title} — photo`} className="media-slot aspect-[16/10] w-full rounded-none border-x-0 border-t-0" />
-              <div className="border-l-4 border-site-red p-6">
+              <div className="border-l-4 border-site-gold p-6">
                 <h3 className="font-display text-xl font-semibold text-site-wood2">{s.title}</h3>
                 <p className="mt-2 text-site-muted">{s.body}</p>
                 <a href={s.bookingUrl || BOOKING_URL} target="_blank" rel="noopener noreferrer" className="btn-emerald mt-5 text-sm">Book {s.title.split(' ')[0]}</a>
@@ -106,7 +110,7 @@ export function Services({ data }: { data: SiteContent['services'] }) {
 export function ScalpWellness({ data }: { data: SiteContent['scalpWellness'] }) {
   return (
     <section className="relative overflow-hidden bg-site-emerald py-16 text-site-sand sm:py-24">
-      <Motif className="pointer-events-none absolute -right-20 -top-20 h-96 w-96 opacity-30" color="#D9A441" />
+      <Motif className="pointer-events-none absolute -right-20 -top-20 h-96 w-96 opacity-30" color="#BF9D45" />
       <div className="site-wrap relative text-center">
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-site-gold">The wellness difference</p>
         <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">{data.title}</h2>
@@ -228,8 +232,8 @@ export function FinalCTA({ data }: { data: SiteContent['finalCta'] }) {
     <section className="py-20 sm:py-28">
       <div className="site-wrap">
         <div className="relative overflow-hidden rounded-[2rem] bg-site-wood2 px-8 py-16 text-center text-site-sand">
-          <Motif className="pointer-events-none absolute -left-16 -top-16 h-80 w-80 opacity-20" color="#D9A441" />
-          <Motif className="pointer-events-none absolute -bottom-20 -right-16 h-80 w-80 opacity-20" color="#CE1B23" />
+          <Motif className="pointer-events-none absolute -left-16 -top-16 h-80 w-80 opacity-25" color="#BF9D45" />
+          <Motif className="pointer-events-none absolute -bottom-20 -right-16 h-80 w-80 opacity-20" color="#0B5E52" />
           <h2 className="relative font-display text-3xl font-semibold sm:text-4xl">{data.headline}</h2>
           <p className="relative mx-auto mt-4 max-w-xl text-site-sand/85">{data.subtext}</p>
           <a href={data.ctaUrl || BOOKING_URL} target="_blank" rel="noopener noreferrer" className="btn-primary relative mt-8 text-base">{data.cta}</a>
@@ -251,7 +255,7 @@ export function SiteFooter() {
         <div className="text-sm text-site-wood">
           <p className="font-semibold text-site-wood2">Visit</p>
           <p className="mt-2">{CONTACT.location}</p>
-          <a href={CONTACT.phoneHref} className="mt-1 block hover:text-site-red">{CONTACT.phone}</a>
+          <a href={CONTACT.phoneHref} className="mt-1 block hover:text-site-emerald">{CONTACT.phone}</a>
         </div>
         <div className="text-sm text-site-wood">
           <p className="font-semibold text-site-wood2">Hours</p>

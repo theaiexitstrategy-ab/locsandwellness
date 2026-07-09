@@ -14,18 +14,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // --- v2 marketing palette (Leslie's spec) ---
-        'site-sand':    '#F5EEDD',
-        'site-sand2':   '#FBF6EA',
-        'site-wood':    '#5C3C24',
-        'site-wood2':   '#40290F',
-        'site-red':     '#CE1B23',
-        'site-gold':    '#D9A441',
-        'site-emerald': '#0B5E52',
-        'site-emerald2':'#083F37',
-        'site-ink':     '#2A1D12',
-        'site-rule':    '#E4D8BF',
-        'site-muted':   '#8A7B63',
+        // --- marketing palette: ivory bg + black / gold / deep emerald (no red) ---
+        'site-sand':    '#F5F0E3', // ivory page background
+        'site-sand2':   '#FCF9F1', // raised ivory (cards, alt sections)
+        'site-wood':    '#2B2720', // charcoal — body text
+        'site-wood2':   '#15120D', // near-black — headings / dark panels
+        'site-red':     '#0B5E52', // retired: repointed to emerald so stray uses stay on-palette
+        'site-gold':    '#BF9D45', // rich gold accent
+        'site-emerald': '#0B5E52', // deep emerald green (primary action)
+        'site-emerald2':'#08463C', // emerald hover / deep
+        'site-ink':     '#17140E', // near-black ink
+        'site-rule':    '#E7DFCC', // hairline borders on ivory
+        'site-muted':   '#7C7360', // warm neutral gray for secondary text
 
         // Ivory / emerald / gold — matches the marketing site tokens.
         'locs-ivory':   '#F4EEE1',

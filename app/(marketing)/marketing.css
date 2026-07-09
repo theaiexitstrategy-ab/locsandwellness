@@ -10,12 +10,11 @@
 
 @layer base {
   :root {
-    --sand: #F5EEDD; --wood: #5C3C24; --red: #CE1B23;
-    --gold: #D9A441; --emerald: #0B5E52;
+    --ivory: #F5F0E3; --black: #15120D; --gold: #BF9D45; --emerald: #0B5E52;
   }
   body {
-    background: #F5EEDD;
-    color: #2A1D12;
+    background: #F5F0E3;
+    color: #201C15;
     font-family: 'Jost', sans-serif;
     -webkit-font-smoothing: antialiased;
     line-height: 1.65;
@@ -34,8 +33,13 @@
   .lede { @apply text-site-muted; }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-full bg-site-red px-7 py-3
-           font-medium text-white shadow-sm transition hover:brightness-95 active:scale-[0.98];
+    @apply inline-flex items-center justify-center rounded-full bg-site-emerald px-7 py-3
+           font-medium text-white shadow-sm transition hover:bg-site-emerald2 active:scale-[0.98];
+  }
+  /* Solid near-black button for dark-on-ivory emphasis. */
+  .btn-dark {
+    @apply inline-flex items-center justify-center rounded-full bg-site-wood2 px-7 py-3
+           font-medium text-site-sand shadow-sm transition hover:brightness-125 active:scale-[0.98];
   }
   .btn-emerald {
     @apply inline-flex items-center justify-center rounded-full bg-site-emerald px-7 py-3

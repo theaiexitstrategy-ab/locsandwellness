@@ -29,9 +29,9 @@ export default function Quiz({ data }: { data: SiteContent['quiz'] }) {
 
   return (
     <div className="card overflow-hidden">
-      {/* Red accent header — the quiz card is where red shows up boldly. */}
-      <div className="flex items-center justify-between bg-site-red px-7 py-4 text-white">
-        <span className="text-xs font-semibold uppercase tracking-[0.2em]">Wellness Quiz</span>
+      {/* Near-black header band with a gold label — the card's dark accent. */}
+      <div className="flex items-center justify-between bg-site-wood2 px-7 py-4 text-white">
+        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-site-gold">Wellness Quiz</span>
         <span className="text-xs opacity-90">{done ? 'Your result' : `Step ${step + 1} of ${questions.length}`}</span>
       </div>
 
@@ -42,7 +42,7 @@ export default function Quiz({ data }: { data: SiteContent['quiz'] }) {
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
               {questions[step].options.map((o, i) => (
                 <button key={i} onClick={() => choose(o.key)}
-                  className="rounded-2xl border border-site-rule bg-white/60 px-5 py-4 text-left font-medium text-site-wood transition hover:border-site-red hover:bg-white">
+                  className="rounded-2xl border border-site-rule bg-white/60 px-5 py-4 text-left font-medium text-site-wood transition hover:border-site-emerald hover:bg-white">
                   {o.label}
                 </button>
               ))}

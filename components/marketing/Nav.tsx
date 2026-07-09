@@ -20,7 +20,7 @@ export default function Nav({ ctaUrl }: { ctaUrl?: string }) {
         {/* Left: nav links */}
         <nav className="hidden gap-7 md:flex">
           {LINKS.map((l) => (
-            <a key={l.href} href={l.href} className="text-sm font-medium text-site-wood transition hover:text-site-red">
+            <a key={l.href} href={l.href} className="text-sm font-medium text-site-wood transition hover:text-site-emerald">
               {l.label}
             </a>
           ))}
@@ -28,7 +28,7 @@ export default function Nav({ ctaUrl }: { ctaUrl?: string }) {
 
         {/* Center: logo, pinned to true page center */}
         <a href="#top" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <Logo animate />
+          <Logo size="nav" />
         </a>
 
         {/* Right: booking CTA */}
