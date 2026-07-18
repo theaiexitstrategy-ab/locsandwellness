@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<!-- © 2026 GoElev8.ai | Aaron Bryant. All rights reserved. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Locs + Wellness Co.</title>
+  <meta name="description" content="The Locs + Wellness Co. — holistic scalp, hair & loc wellness. Healthy locs start with a healthy foundation." />
+  <link rel="icon" href="/images/lawco-logo.png" />
+
+  <!-- Google Analytics (GA4) — same property as the rest of locsandwellness.com -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLPHJ60W0L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLPHJ60W0L');
+  </script>
+
+  <!-- Fonts: Cormorant Garamond (script wordmark + display) + Jost (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============ NAV ============ -->
+  <nav class="nav" aria-label="Primary">
+    <button class="menu-icon" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <a href="#top" class="logo-script"><span class="swash">T</span>he Locs + Wellness Co.</a>
+
+    <a class="login-btn" href="/locs/signin">Log In</a>
+
+    <!-- Full-screen mobile menu -->
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+      <button class="mobile-menu-close" id="menuClose" aria-label="Close menu">&times;</button>
+      <a href="https://lawco.glossgenius.com" target="_blank" rel="noopener" class="mobile-menu-link">Book Now</a>
+      <a href="#quiz" class="mobile-menu-link">Take the Quiz</a>
+      <a href="#method" class="mobile-menu-link">The Method</a>
+      <a href="#gallery" class="mobile-menu-link">Gallery</a>
+      <a href="/locs/signin" class="mobile-menu-link">Log In</a>
+    </div>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <header class="hero" id="top">
+    <div class="hero-image">
+      <!-- Swap /images/hero.jpg for a dedicated client hero photo when ready.
+           Defaults to the clients image, cover-cropped (center 20%). -->
+      <img
+        src="images/hero.jpg"
+        srcset="images/hero.jpg 900w, images/hero@2x.jpg 1534w"
+        sizes="(min-width: 768px) 50vw, 100vw"
+        alt="Clients showing healthy, well-maintained locs"
+        width="900" height="474" loading="eager" fetchpriority="high" />
+    </div>
+
+    <div class="hero-copy">
+      <span class="logo-script"><span class="swash">T</span>he Locs + Wellness Co.</span>
+      <div class="eyebrow">Holistic Scalp, Hair &amp; Loc Wellness</div>
+      <h1>Healthy locs start with<br />a healthy foundation.</h1>
+      <p>Our personalized wellness system is designed to nourish, restore, and support your loc journey — from first consultation to lasting home care.</p>
+      <a class="book-btn" href="https://lawco.glossgenius.com" target="_blank" rel="noopener">Book Now</a>
+    </div>
+  </header>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="quiz" id="quiz">
+    <div class="section-label">Find Your Starting Point</div>
+    <h2>Scalp, Hair &amp; Loc Wellness Quiz</h2>
+    <div class="sub">A two-minute assessment to build your personalized care path.</div>
+    <div class="quiz-card">
+      <button class="take-quiz-btn" id="openQuiz">Take the Quiz</button>
+      <div class="note">You'll be asked for your name and email before starting.</div>
+    </div>
+  </section>
+
+  <!-- ============ METHOD ============ -->
+  <section class="method" id="method">
+    <div class="section-label">How We Work</div>
+    <h2>The Locs + Wellness Method</h2>
+    <div class="sub">A calm, considered path — from first consultation to lasting home care.</div>
+    <div class="method-grid">
+      <div class="method-card">
+        <span class="num">01</span>
+        <h3>Scalp, Hair &amp; Loc Wellness Assessment</h3>
+        <p>In-depth microscopic scalp analysis, hair porosity test, and loc integrity evaluation.</p>
+      </div>
+      <div class="method-card">
+        <span class="num">02</span>
+        <h3>Personalized Care Plan</h3>
+        <p>Customized product, maintenance, and treatment plan built around your results.</p>
+      </div>
+      <div class="method-card">
+        <span class="num">03</span>
+        <h3>The Locs + Wellness Experience</h3>
+        <p>Intentional care, customized treatments, and professional services.</p>
+      </div>
+      <div class="method-card">
+        <span class="num">04</span>
+        <h3>Home Wellness Routine</h3>
+        <p>Leave empowered with knowledge, products, and a system for your scalp, hair &amp; loc care.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GALLERY ============ -->
+  <section class="gallery" id="gallery">
+    <h2>Every Journey, Every Loc Type</h2>
+    <div class="gallery-frame">
+      <div class="gallery-img-row">
+        <!-- Swap /images/gallery.jpg for the wide 4-client image (styles in label order below). -->
+        <img
+          src="images/gallery.jpg"
+          srcset="images/gallery.jpg 1200w, images/gallery@2x.jpg 1534w"
+          sizes="(min-width: 768px) 88vw, 100vw"
+          alt="Four clients showing palm roll, interlock, microlocs, and wick method loc styles"
+          width="1200" height="632" loading="lazy" />
+      </div>
+      <div class="gallery-labels">
+        <div class="col">
+          <div class="gender">Female</div>
+          <div class="style-tag">Traditional Method<br />Palm Roll</div>
+        </div>
+        <div class="col">
+          <div class="gender">Male</div>
+          <div class="style-tag">Traditional Method<br />Interlock</div>
+        </div>
+        <div class="col">
+          <div class="gender">Female</div>
+          <div class="style-tag">Microlocs</div>
+        </div>
+        <div class="col">
+          <div class="gender">Male</div>
+          <div class="style-tag">Wick Method</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER SIGNATURE ============ -->
+  <section class="signature-block">
+    <a href="#top" class="logo-script"><span class="swash">T</span>he Locs + Wellness Co.</a>
+    <p>Overall Wellness</p>
+  </section>
+
+  <!-- Required credit — do not remove or hide. -->
+  <div class="footer-credit">
+    Site by <a href="https://goelev8.ai" target="_blank" rel="noopener">GoElev8.ai</a>
+  </div>
+
+  <!-- ============ QUIZ MODAL (name/email capture) ============ -->
+  <div class="modal-overlay" id="quizModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+
+      <div class="modal-body" id="modalIntro">
+        <div class="section-label">Before We Begin</div>
+        <h2 class="modal-title" id="modalTitle">Where should we send your results?</h2>
+        <p class="modal-copy">Enter your name and email to start the Scalp, Hair &amp; Loc Wellness Quiz.</p>
+
+        <form id="captureForm" novalidate>
+          <label class="field">
+            <span class="field-label">First name</span>
+            <input type="text" name="name" id="fName" autocomplete="given-name" required />
+          </label>
+          <label class="field">
+            <span class="field-label">Email</span>
+            <input type="email" name="email" id="fEmail" autocomplete="email" required />
+          </label>
+          <p class="form-error" id="formError" role="alert" hidden></p>
+          <button type="submit" class="take-quiz-btn modal-submit" id="captureSubmit">Start the Quiz</button>
+          <p class="form-fine">We'll only use this to send your results. No spam.</p>
+        </form>
+      </div>
+
+      <!-- Shown after capture succeeds. Quiz questions get built out here. -->
+      <div class="modal-body" id="modalThanks" hidden>
+        <div class="section-label">You're In</div>
+        <h2 class="modal-title">Let's find your starting point.</h2>
+        <p class="modal-copy" id="thanksCopy">Thanks! Your quiz is loading…</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
