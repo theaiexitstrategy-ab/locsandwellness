@@ -56,7 +56,7 @@ img { display: block; max-width: 100%; height: auto; }
 .nav {
   position: sticky; top: 0; z-index: 100;
   display: grid;
-  grid-template-columns: 44px 1fr 44px;   /* burger | wordmark | spacer (login lives in menu on mobile) */
+  grid-template-columns: 44px 1fr auto;   /* burger | logo | Log In */
   align-items: center;
   gap: 8px;
   padding: 12px 5vw;
@@ -81,7 +81,7 @@ img { display: block; max-width: 100%; height: auto; }
 }
 .nav-logo img { height: 38px; width: auto; display: block; }
 .login-btn {
-  display: none;                /* mobile: Log In lives in the slide-out menu; shown ≥768px */
+  display: inline-flex;         /* visible in the banner at every size */
   justify-self: end;
   align-items: center; justify-content: center;
   min-height: 44px;
