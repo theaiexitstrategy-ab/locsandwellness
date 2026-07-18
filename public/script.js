@@ -145,3 +145,18 @@ function showError(msg) {
   formError.textContent = msg;
   formError.hidden = false;
 }
+
+/* -----------------------------------------------------------------
+   Ebook "Get the guide" buttons — placeholders until real ebook
+   links/files exist. Prevent the empty href="#" from jumping to top.
+   Swap each anchor's href for the real download / checkout URL and
+   this guard becomes a no-op.
+   ----------------------------------------------------------------- */
+document.querySelectorAll('a[data-ebook]').forEach((a) => {
+  a.addEventListener('click', (e) => {
+    if (a.getAttribute('href') === '#') {
+      e.preventDefault();
+      console.info('[ebook] link not set yet:', a.dataset.ebook);
+    }
+  });
+});

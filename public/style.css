@@ -489,3 +489,130 @@ body.no-scroll { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* ==================================================================== */
+/* SERVICES · EBOOKS · ABOUT  (added sections)                          */
+/* ==================================================================== */
+
+/* Shared display headings for the new sections */
+.services h2, .ebooks h2, .about h2 {
+  font-family: var(--script);
+  font-weight: 500;
+  font-size: clamp(1.75rem, 7.5vw, 2.25rem);
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+
+/* ---- SERVICES ---- */
+.services { background: var(--white); padding: 72px 6vw; }
+.services-inner { max-width: 1200px; margin: 0 auto; text-align: center; }
+.services .sub {
+  color: rgba(13, 15, 13, 0.6);
+  font-size: 0.95rem;
+  max-width: 54ch;
+  margin: 0 auto 40px;
+}
+.services-grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
+.service-card {
+  display: flex; flex-direction: column;
+  text-align: left;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.service-img { aspect-ratio: 4 / 5; overflow: hidden; background: var(--green-deep); }
+.service-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 22%; }
+.service-body { display: flex; flex-direction: column; flex: 1; padding: 24px 22px 26px; }
+.service-body h3 {
+  font-family: var(--script); font-style: italic; font-weight: 600;
+  font-size: 1.5rem; line-height: 1.15; margin-bottom: 10px;
+}
+.service-body p { font-size: 0.92rem; color: rgba(13, 15, 13, 0.7); margin-bottom: 18px; flex: 1; }
+.service-link {
+  align-self: flex-start;
+  display: inline-flex; align-items: center;
+  min-height: 44px;
+  font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase;
+  font-weight: 500; color: var(--green);
+  transition: color .2s;
+}
+.service-link:hover, .service-link:focus-visible { color: var(--gold); }
+.btn-book-all {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; margin-top: 40px; padding: 0 40px;
+  background: var(--black); color: var(--white);
+  font-size: 0.72rem; letter-spacing: 2.5px; text-transform: uppercase;
+  border-radius: 2px; transition: background .25s ease, color .25s ease;
+}
+.btn-book-all:hover, .btn-book-all:focus-visible { background: var(--gold); color: var(--black); }
+
+/* ---- EBOOKS (dark green) ---- */
+.ebooks { background: var(--green-deep); color: var(--white); padding: 72px 6vw; }
+.ebooks-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+.ebooks .section-label { color: var(--gold); }
+.ebooks h2 { color: var(--white); }
+.ebooks .sub { color: rgba(250, 249, 246, 0.7); font-size: 0.95rem; max-width: 48ch; margin: 0 auto 40px; }
+.ebooks-grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
+.ebook-card {
+  display: flex; flex-direction: column;
+  text-align: left;
+  background: rgba(250, 249, 246, 0.04);
+  border: 1px solid var(--line-light);
+  border-radius: 6px; overflow: hidden;
+}
+.ebook-cover {
+  aspect-ratio: 3 / 2;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center; gap: 10px; padding: 28px 20px;
+  background: linear-gradient(150deg, #14180f, #2e3a24);
+  border-bottom: 2px solid var(--gold);
+}
+.ebook-cover-alt { background: linear-gradient(150deg, #2e3a24, #4a5d3a); }
+.ebook-kicker { font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); }
+.ebook-cover-title {
+  font-family: var(--script); font-style: italic; font-weight: 600;
+  font-size: 1.6rem; line-height: 1.1; color: var(--white);
+}
+.ebook-cover-brand { font-size: 0.58rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(250, 249, 246, 0.55); }
+.ebook-body { padding: 22px 22px 26px; }
+.ebook-body h3 {
+  font-family: var(--script); font-style: italic; font-weight: 600;
+  font-size: 1.35rem; color: var(--white); margin-bottom: 8px;
+}
+.ebook-body p { font-size: 0.92rem; color: rgba(250, 249, 246, 0.7); margin-bottom: 16px; }
+.ebooks .service-link { color: var(--gold); }
+.ebooks .service-link:hover, .ebooks .service-link:focus-visible { color: var(--white); }
+
+/* ---- ABOUT ---- */
+.about { background: var(--white); padding: 72px 6vw; }
+.about-inner {
+  max-width: 1000px; margin: 0 auto;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 32px; text-align: center;
+}
+.about-photo { flex-shrink: 0; }
+.about-photo img {
+  width: 220px; height: 220px;
+  border-radius: 50%;            /* clips the headshot's black corners to a clean circle */
+  object-fit: cover;
+  border: 3px solid var(--gold);
+}
+.about-copy p { color: rgba(13, 15, 13, 0.72); font-size: 1rem; margin-bottom: 14px; }
+.about-creds { list-style: none; padding: 0; display: flex; flex-direction: column; align-items: center; gap: 9px; margin: 22px 0 26px; }
+.about-creds li {
+  position: relative; padding-left: 22px;
+  font-size: 0.78rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--green);
+}
+.about-creds li::before { content: '\2726'; color: var(--gold); position: absolute; left: 0; }
+
+/* ---- responsive ---- */
+@media (min-width: 768px) {
+  .services, .ebooks, .about { padding: 96px 6vw; }
+  .services-grid { grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  .ebooks-grid { grid-template-columns: repeat(2, 1fr); gap: 26px; }
+  .about-inner { flex-direction: row; align-items: center; gap: 48px; text-align: left; }
+  .about-copy { flex: 1; }
+  .about-creds { align-items: flex-start; }
+  .about-photo img { width: 300px; height: 300px; }
+}
