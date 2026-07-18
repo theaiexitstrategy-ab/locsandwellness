@@ -145,7 +145,7 @@ img { display: block; max-width: 100%; height: auto; }
   padding: 48px 24px 56px;
 }
 .hero-logo {
-  align-self: flex-start;
+  align-self: center;           /* mobile: centered under the hero image */
   height: clamp(96px, 24vw, 150px);
   width: auto;
   margin-bottom: 24px;
@@ -449,6 +449,7 @@ body.no-scroll { overflow: hidden; }
   .hero { flex-direction: row; min-height: 600px; }
   .hero-image { width: 50%; aspect-ratio: auto; }
   .hero-copy { width: 50%; justify-content: center; padding: 56px 48px; }
+  .hero-logo { align-self: flex-start; }   /* desktop: panel sits beside the image, align with copy */
 
   .quiz   { padding: 96px 6vw 88px; }
   .method { padding: 96px 6vw; }
