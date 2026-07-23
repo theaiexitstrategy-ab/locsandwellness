@@ -600,10 +600,20 @@ body.no-scroll { overflow: hidden; }
 }
 .about-creds li::before { content: '\2726'; color: var(--gold); position: absolute; left: 0; }
 
+/* ---- LOC TYPES & SERVICES (gallery section) ---- */
+.gallery-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+.loctypes-grid {
+  display: grid;
+  grid-template-columns: 1fr;    /* mobile: single column */
+  gap: 22px;
+  margin-top: 36px;
+}
+
 /* ---- responsive ---- */
 @media (min-width: 768px) {
   .services, .ebooks, .about { padding: 96px 6vw; }
   .services-grid { grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  .loctypes-grid { grid-template-columns: repeat(2, 1fr); gap: 26px; }   /* desktop: 2x2 */
   .ebooks-grid { grid-template-columns: repeat(2, 1fr); gap: 26px; }
   .about-inner { flex-direction: row; align-items: center; gap: 48px; text-align: left; }
   .about-copy { flex: 1; }
