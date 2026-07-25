@@ -51,12 +51,18 @@
   <!-- ============ HERO ============ -->
   <header class="hero" id="top">
     <div class="hero-anim">
-      <!-- Animated brand mark: the logo's calligraphic "L" draws itself, then
-           the wordmark fades in, looping. Decorative — hidden from screen readers. -->
-      <svg class="lw-logo" viewBox="0 0 320 360" role="img" aria-label="The Locs and Wellness Co. logo">
-        <path class="lw-stroke" pathLength="1"
-          d="M205 40 C214 132 180 234 122 286 C98 320 60 312 76 278 C120 294 240 289 302 285" />
-        <text class="lw-word" x="200" y="300" text-anchor="middle">Locs and Wellness Co.</text>
+      <!-- Animated brand mark: the actual logo (images/logo-white.png) is
+           revealed progressively along its stroke via an animated mask, so the
+           real logo appears to draw itself, then loops. -->
+      <svg class="lw-logo" viewBox="0 0 340 297" role="img" aria-label="The Locs and Wellness Co. logo">
+        <defs>
+          <mask id="lwMask">
+            <path class="lw-reveal" pathLength="1"
+              d="M200 18 C190 90 150 175 110 240 C88 262 30 284 26 262 C23 245 74 244 122 250 C204 258 272 256 322 258"
+              fill="none" stroke="#fff" stroke-width="52" stroke-linecap="round" stroke-linejoin="round" />
+          </mask>
+        </defs>
+        <image href="images/logo-white.png" width="340" height="297" mask="url(#lwMask)" />
       </svg>
     </div>
 
