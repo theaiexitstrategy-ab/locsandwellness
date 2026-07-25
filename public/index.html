@@ -50,19 +50,17 @@
 
   <!-- ============ HERO ============ -->
   <header class="hero" id="top">
-    <div class="hero-image">
-      <!-- Swap /images/hero.jpg for a dedicated client hero photo when ready.
-           Defaults to the clients image, cover-cropped (center 20%). -->
-      <img
-        src="images/hero.jpg"
-        srcset="images/hero.jpg 900w, images/hero@2x.jpg 1534w"
-        sizes="(min-width: 768px) 50vw, 100vw"
-        alt="Clients showing healthy, well-maintained locs"
-        width="900" height="474" loading="eager" fetchpriority="high" />
+    <div class="hero-anim">
+      <!-- Animated brand mark: the logo's calligraphic "L" draws itself, then
+           the wordmark fades in, looping. Decorative — hidden from screen readers. -->
+      <svg class="lw-logo" viewBox="0 0 320 360" role="img" aria-label="The Locs and Wellness Co. logo">
+        <path class="lw-stroke" pathLength="1"
+          d="M205 40 C214 132 180 234 122 286 C98 320 60 312 76 278 C120 294 240 289 302 285" />
+        <text class="lw-word" x="200" y="300" text-anchor="middle">Locs and Wellness Co.</text>
+      </svg>
     </div>
 
     <div class="hero-copy">
-      <img class="hero-logo" src="images/logo-white.png" alt="The Locs + Wellness Co." width="340" height="297" />
       <div class="eyebrow">Holistic Scalp, Hair &amp; Loc Wellness</div>
       <h1>Healthy locs start with<br />a healthy foundation.</h1>
       <p>Our personalized wellness system is designed to nourish, restore, and support your loc journey — from first consultation to lasting home care.</p>
