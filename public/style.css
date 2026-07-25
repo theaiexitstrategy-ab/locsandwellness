@@ -76,10 +76,19 @@ img { display: block; max-width: 100%; height: auto; }
 }
 .nav-logo {
   justify-self: center;
-  display: flex; align-items: center; justify-content: center;
   min-width: 0;
+  max-width: 100%;
+  text-align: center;
+  font-family: var(--script);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--green-deep);
+  font-size: clamp(0.85rem, 3.6vw, 1.5rem);
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.nav-logo img { height: 38px; width: auto; display: block; }
 .login-btn {
   display: inline-flex;         /* visible in the banner at every size */
   justify-self: end;
@@ -442,7 +451,6 @@ body.no-scroll { overflow: hidden; }
 /* ==================================================================== */
 @media (min-width: 768px) {
   .nav { padding: 18px 5vw; grid-template-columns: 44px 1fr auto; }
-  .nav-logo img { height: 46px; }
   .login-btn { display: inline-flex; padding: 0 22px; font-size: 0.7rem; letter-spacing: 2px; }
 
   /* Hero side-by-side: image left, black copy right */
