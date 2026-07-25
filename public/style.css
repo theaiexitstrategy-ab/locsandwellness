@@ -608,6 +608,16 @@ body.no-scroll { overflow: hidden; }
   gap: 22px;
   margin-top: 36px;
 }
+/* Loc Repair card holds two before/after composites, shown uncropped
+   (their baked-in BEFORE/AFTER labels must stay visible), stacked. */
+.service-img--stack {
+  aspect-ratio: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--green-deep);
+}
+.service-img--stack img { width: 100%; height: auto; object-fit: contain; }
 
 /* ---- responsive ---- */
 @media (min-width: 768px) {
