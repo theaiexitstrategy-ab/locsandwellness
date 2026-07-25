@@ -610,12 +610,18 @@ body.no-scroll { overflow: hidden; }
 
 /* ---- LOC TYPES & SERVICES (gallery section) ---- */
 .gallery-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+/* Single column so each loc-type photo shows in full (no cropping). */
 .loctypes-grid {
   display: grid;
-  grid-template-columns: 1fr;    /* mobile: single column */
-  gap: 22px;
-  margin-top: 36px;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  max-width: 680px;
+  margin: 36px auto 0;
 }
+/* Show the full image (natural aspect) instead of the 4:5 cover crop
+   used by the "What We Offer" services cards. */
+.loctypes-grid .service-img { aspect-ratio: auto; }
+.loctypes-grid .service-img img { height: auto; object-fit: contain; }
 /* Loc Repair card holds two before/after composites, shown uncropped
    (their baked-in BEFORE/AFTER labels must stay visible), stacked. */
 .service-img--stack {
@@ -631,7 +637,7 @@ body.no-scroll { overflow: hidden; }
 @media (min-width: 768px) {
   .services, .ebooks, .about { padding: 96px 6vw; }
   .services-grid { grid-template-columns: repeat(3, 1fr); gap: 26px; }
-  .loctypes-grid { grid-template-columns: repeat(2, 1fr); gap: 26px; }   /* desktop: 2x2 */
+  /* loc-types stay single column (full uncropped photos) at every width */
   .ebooks-grid { grid-template-columns: repeat(2, 1fr); gap: 26px; }
   .about-inner { flex-direction: row; align-items: center; gap: 48px; text-align: left; }
   .about-copy { flex: 1; }
