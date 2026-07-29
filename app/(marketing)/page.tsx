@@ -14,13 +14,18 @@
 // Not-yet-CMS (still hardcoded — safe to migrate later):
 //   * Nav copy, mobile menu links
 //   * Loc Types & Services (4 cards)
-//   * Free Guide section
-//   * Signature block, footer, quiz modal copy
+//   * Signature block, footer
 //
-// Client-side interactions (menu, modal, quiz-lead capture) live in
-// MarketingClient.tsx which mounts once here.
+// The ebook section is a LIVE merch product read from the portal catalog
+// (lib/marketing/ebook.ts) — cover, price, and copy come from the merch tab;
+// Buy routes to its Stripe Payment Link and the Stripe webhook emails the
+// download after purchase.
+//
+// Client-side interactions (mobile menu) live in MarketingClient.tsx which
+// mounts once here.
 
 import { getSiteContent } from '@/lib/marketing/site';
+import { getEbookProduct, formatPrice } from '@/lib/marketing/ebook';
 import MarketingClient from './MarketingClient';
 
 // Re-read content on each request so Leslie's edits appear without a
@@ -31,6 +36,20 @@ const BOOKING_URL = 'https://lawco.glossgenius.com';
 
 export default async function HomePage() {
   const c = await getSiteContent();
+
+  // Ebook — a live merch product managed from the portal's merch tab. Null
+  // until Leslie adds it; the section renders a graceful "view in shop"
+  // fallback in the meantime so there's never a broken window.
+  const ebook = await getEbookProduct();
+  const ebookImg   = ebook?.image_url || '/images/guide-cover.jpg';
+  const ebookTitle = ebook?.name || 'The Complete Guide to a Healthy Loc Wellness System';
+  const ebookDesc  = ebook?.description ||
+    'A guide covering the 12 principles behind a thriving scalp, hair & loc wellness system — the same foundation Leslie builds every client’s care plan on.';
+  const ebookPrice = formatPrice(ebook?.price_cents);
+  const ebookWas   = ebook?.compare_at_price_cents && ebook.compare_at_price_cents > (ebook.price_cents || 0)
+    ? formatPrice(ebook.compare_at_price_cents) : '';
+  // Buy → the product's Stripe Payment Link if set, else send them to the shop.
+  const ebookBuyUrl = ebook?.payment_link || '/merch';
 
   // Hero copy — CMS with sensible fallbacks matching public/index.html.
   const heroHeadline = c.hero?.headline || 'Healthy locs start with a healthy foundation.';
@@ -82,7 +101,7 @@ export default async function HomePage() {
           <a href={heroCtaUrl} target="_blank" rel="noopener" className="mobile-menu-link">Book Now</a>
           <a href="#quiz" className="mobile-menu-link">Take the Quiz</a>
           <a href="#gallery" className="mobile-menu-link">Services</a>
-          <a href="#guide" className="mobile-menu-link">Free Guide</a>
+          <a href="#guide" className="mobile-menu-link">The Ebook</a>
           <a href="#about" className="mobile-menu-link">About</a>
           <a href="/locs/signin" className="mobile-menu-link">Log In</a>
         </div>
@@ -202,23 +221,38 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ============ FREE GUIDE ============ */}
+      {/* ============ EBOOK ============ */}
+      {/* Live merch product — cover, price, and copy read from the portal
+          merch tab (see lib/marketing/ebook.ts). Buy routes to the product's
+          Stripe Payment Link; fulfillment is handled by the Stripe webhook
+          (/api/merch/stripe-webhook) which emails the download after payment. */}
       <section className="guide" id="guide">
         <div className="guide-inner">
           <div className="guide-cover">
-            <img src="/images/guide-cover.jpg"
-                 srcSet="/images/guide-cover.jpg 720w, /images/guide-cover@2x.jpg 1080w"
+            <img src={ebookImg}
                  sizes="(min-width: 768px) 300px, 62vw"
-                 alt="Cover of The Complete Guide to Creating a Healthy Loc Wellness System — a Locs & Wellness Co. guide"
+                 alt={`Cover of ${ebookTitle} — a Locs & Wellness Co. ebook`}
                  width={720} height={1080} loading="lazy" />
           </div>
           <div className="guide-body">
-            <div className="section-label">Free Guide</div>
-            <h2>The Complete Guide to Creating a Healthy Loc Wellness System</h2>
+            <div className="section-label">The Ebook</div>
+            <h2>{ebookTitle}</h2>
             <p className="guide-tagline">Wellness is a system. Your locs are the reflection.</p>
-            <p className="guide-desc">A 14-page guide covering the 12 principles behind a thriving scalp, hair &amp; loc wellness system — the same foundation Leslie builds every client&apos;s care plan on. A Locs&nbsp;&amp;&nbsp;Wellness Co.&trade; Guide.</p>
-            <button className="btn-book-all" id="getGuide" type="button">Get the free guide</button>
-            <p className="guide-fine">Instant download — and we&apos;ll email you a copy too.</p>
+            <p className="guide-desc">{ebookDesc}</p>
+            {ebookPrice && (
+              <p className="guide-price" style={{ margin: '0 0 18px', fontSize: '1.35rem', color: '#0B2B1E', fontWeight: 600 }}>
+                {ebookPrice}
+                {ebookWas && (
+                  <span style={{ marginLeft: 10, color: '#8a8073', fontWeight: 400, textDecoration: 'line-through', fontSize: '1rem' }}>{ebookWas}</span>
+                )}
+              </p>
+            )}
+            <a className="btn-book-all" href={ebookBuyUrl}
+               target={ebook?.payment_link ? '_blank' : undefined}
+               rel={ebook?.payment_link ? 'noopener' : undefined}>
+              {ebook?.payment_link ? 'Buy the ebook' : 'View in shop'}
+            </a>
+            <p className="guide-fine">Instant download delivered to your inbox after purchase.</p>
           </div>
         </div>
       </section>
@@ -255,43 +289,7 @@ export default async function HomePage() {
         Site by <a href="https://goelev8.ai" target="_blank" rel="noopener">GoElev8.ai</a>
       </div>
 
-      {/* ============ QUIZ MODAL ============ */}
-      <div className="modal-overlay" id="quizModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <div className="modal">
-          <button className="modal-close" id="modalClose" aria-label="Close">&times;</button>
-
-          <div className="modal-body" id="modalIntro">
-            <div className="section-label">Almost There</div>
-            <h2 className="modal-title" id="modalTitle">Get your free guide</h2>
-            <p className="modal-copy">Enter your name and email and we&apos;ll send you <em>The Complete Guide to Creating a Healthy Loc Wellness System</em> — plus an instant download.</p>
-
-            <form id="captureForm" noValidate>
-              <label className="field">
-                <span className="field-label">First name</span>
-                <input type="text" name="name" id="fName" autoComplete="given-name" required />
-              </label>
-              <label className="field">
-                <span className="field-label">Email</span>
-                <input type="email" name="email" id="fEmail" autoComplete="email" required />
-              </label>
-              <p className="form-error" id="formError" role="alert" hidden></p>
-              <button type="submit" className="take-quiz-btn modal-submit" id="captureSubmit">Send me the guide</button>
-              <p className="form-fine">We&apos;ll only use this to send your guide. No spam.</p>
-            </form>
-          </div>
-
-          <div className="modal-body" id="modalThanks" hidden>
-            <div className="section-label">You&apos;re In</div>
-            <h2 className="modal-title">Your guide is downloading.</h2>
-            <p className="modal-copy" id="thanksCopy">Thanks! Your guide is on its way.</p>
-            <a className="take-quiz-btn modal-submit" id="guideDownload"
-               href="/guides/The-Complete-Guide-to-a-Healthy-Loc-Wellness-System.pdf"
-               download="The-Complete-Guide-to-Creating-a-Healthy-Loc-Wellness-System.pdf">Download the guide</a>
-          </div>
-        </div>
-      </div>
-
-      {/* Client-side interactions (menu, modal, quiz-lead capture). */}
+      {/* Client-side interactions (mobile menu). */}
       <MarketingClient />
     </>
   );

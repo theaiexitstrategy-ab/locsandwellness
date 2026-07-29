@@ -6,17 +6,20 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // 301s so any old ebook links / past emails resolve to the consolidated guide.
-  // (The prior two "ebooks" were placeholder cards with no real download URLs,
-  // so nothing actually 404s today — these are a forward-safe catch-all.)
+  // The ebook is now a paid merch product, so old free-download links must NOT
+  // hand out the PDF. They resolve to the ebook section on the homepage instead.
+  // (The former public guide PDF path was retired on 2026-07-29; the file now
+  // lives at an unguessable path handed out only to buyers via email.)
   async redirects() {
-    const GUIDE = '/guides/The-Complete-Guide-to-a-Healthy-Loc-Wellness-System.pdf';
+    const EBOOK_SECTION = '/#guide';
+    const OLD_GUIDE = '/guides/The-Complete-Guide-to-a-Healthy-Loc-Wellness-System.pdf';
     return [
-      { source: '/ebooks', destination: GUIDE, statusCode: 301 },
-      { source: '/ebooks/:path*', destination: GUIDE, statusCode: 301 },
-      { source: '/ebook/:path*', destination: GUIDE, statusCode: 301 },
-      { source: '/downloads/healthy-scalp-starter.pdf', destination: GUIDE, statusCode: 301 },
-      { source: '/downloads/loc-maintenance-at-home.pdf', destination: GUIDE, statusCode: 301 },
+      { source: '/ebooks', destination: EBOOK_SECTION, statusCode: 301 },
+      { source: '/ebooks/:path*', destination: EBOOK_SECTION, statusCode: 301 },
+      { source: '/ebook/:path*', destination: EBOOK_SECTION, statusCode: 301 },
+      { source: OLD_GUIDE, destination: EBOOK_SECTION, statusCode: 301 },
+      { source: '/downloads/healthy-scalp-starter.pdf', destination: EBOOK_SECTION, statusCode: 301 },
+      { source: '/downloads/loc-maintenance-at-home.pdf', destination: EBOOK_SECTION, statusCode: 301 },
     ];
   },
 

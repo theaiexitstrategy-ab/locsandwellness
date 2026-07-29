@@ -144,14 +144,18 @@ export const DEFAULTS: SiteContent = {
     ],
   },
 
+  // NOTE: the homepage ebook section is now a LIVE merch product (see
+  // lib/marketing/ebook.ts), not this CMS block. This default is retained only
+  // to keep the SiteContent shape in lockstep with the portal's
+  // LOCS_SITE_DEFAULTS; it is no longer rendered on the site.
   ebooks: {
-    title: 'Free Guide',
-    intro: 'One complete guide to a healthy scalp, hair & loc wellness system.',
+    title: 'The Ebook',
+    intro: 'One complete guide to a healthy scalp, hair & loc wellness system — now available in the shop.',
     items: [
       {
-        title: 'The Complete Guide to Creating a Healthy Loc Wellness System',
-        body: 'Wellness is a system. Your locs are the reflection. A 14-page Locs & Wellness Co.™ guide covering the 12 principles of a healthy loc wellness system.',
-        buttonUrl: '/guides/The-Complete-Guide-to-a-Healthy-Loc-Wellness-System.pdf',
+        title: 'The Complete Guide to a Healthy Loc Wellness System',
+        body: 'Wellness is a system. Your locs are the reflection. A Locs & Wellness Co.™ guide covering the 12 principles of a healthy loc wellness system.',
+        buttonUrl: '/#guide',
         cover: '/images/guide-cover.jpg',
       },
     ],
