@@ -7,6 +7,7 @@
 import Link from 'next/link';
 import { requireClient } from '@/lib/locs/auth';
 import { LOC_STAGE, LOC_METHOD, MAIN_CONCERNS, ELEMENTS, labelFor } from '@/lib/locs/constants';
+import AvatarUploader from '@/components/locs/AvatarUploader';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,10 +22,10 @@ function retwistCountdown(last: string | null, weeks: number | null) {
 }
 
 export default async function DashboardPage() {
-  const { supabase, clientId } = await requireClient();
+  const { supabase, user, clientId } = await requireClient();
 
   const [client, loc, scalp, summary, journal] = await Promise.all([
-    supabase.from('locs_clients').select('full_name, intake_submitted_at').eq('id', clientId).maybeSingle(),
+    supabase.from('locs_clients').select('full_name, intake_submitted_at, avatar_url').eq('id', clientId).maybeSingle(),
     supabase.from('locs_loc_profile').select('*').eq('client_id', clientId).maybeSingle(),
     supabase.from('locs_intake_scalp_history').select('main_concerns, concern_rating').eq('client_id', clientId).maybeSingle(),
     supabase.from('locs_scalp_summary').select('*').eq('visible_to_client', true)
@@ -39,9 +40,12 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <header>
-        <h1 className="font-display text-2xl font-semibold text-locs-emerald">Hi {firstName} 🌿</h1>
-        <p className="mt-1 text-locs-silver">Your personal scalp &amp; loc wellness space.</p>
+      <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="font-display text-2xl font-semibold text-locs-emerald">Hi {firstName} 🌿</h1>
+          <p className="mt-1 text-locs-silver">Your personal scalp &amp; loc wellness space.</p>
+        </div>
+        <AvatarUploader userId={user.id} initialUrl={c.avatar_url ?? null} name={c.full_name ?? null} />
       </header>
 
       {/* Loc stage + retwist countdown */}

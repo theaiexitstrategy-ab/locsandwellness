@@ -16,6 +16,28 @@
 import { Webhook } from 'https://esm.sh/standardwebhooks@1.0.0';
 
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY') ?? '';
+
+// Is this user part of the Locs vertical? URL/metadata detection misses cases
+// like an existing user's password recovery (no tenant metadata, and a
+// redirect_to that may not include the domain), which then fell back to the
+// unverified goelev8.ai sender and 500'd. A locs_users lookup by id is the
+// reliable signal — any admin or client counts. Uses the service-role env that
+// Supabase injects into edge functions; fails open (false) if unavailable.
+async function isLocsUser(userId: string): Promise<boolean> {
+  try {
+    const url = Deno.env.get('SUPABASE_URL');
+    const key = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+    if (!url || !key || !userId) return false;
+    const r = await fetch(`${url}/rest/v1/locs_users?id=eq.${userId}&select=id`, {
+      headers: { apikey: key, Authorization: `Bearer ${key}` },
+    });
+    if (!r.ok) return false;
+    const rows = await r.json();
+    return Array.isArray(rows) && rows.length > 0;
+  } catch {
+    return false;
+  }
+}
 // Supabase gives the secret as "v1,whsec_<base64>"; standardwebhooks only strips
 // a leading "whsec_", so drop the "v1," or signature verification 401s.
 const HOOK_SECRET = (Deno.env.get('SEND_EMAIL_HOOK_SECRET') ?? '').replace(/^v1,/, '');
@@ -66,7 +88,9 @@ Deno.serve(async (req) => {
     const siteUrl: string = ed.site_url || '';
     const meta = (user && user.user_metadata) || {};
     const hay = (redirectTo + ' ' + siteUrl).toLowerCase();
-    const isLocs = meta.tenant === 'locs' || hay.includes('locsandwellness');
+    const isLocs = meta.tenant === 'locs'
+      || hay.includes('locsandwellness')
+      || (await isLocsUser(user?.id));
     const b = isLocs ? LOCS : DEFAULT_BRAND;
 
     const link = isLocs

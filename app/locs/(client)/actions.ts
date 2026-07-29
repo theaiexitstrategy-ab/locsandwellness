@@ -45,3 +45,30 @@ export async function addJournalEntry(input: JournalInput): Promise<{ ok: boolea
   revalidatePath('/locs/dashboard');
   return { ok: true };
 }
+
+// Save the client's profile picture. The image is uploaded client-side to the
+// public locs-avatars bucket under {userId}/... (RLS confines the write to the
+// caller's own folder); here we take the storage PATH, re-derive the public URL
+// server-side (never trusting a client-supplied URL), and store it on the
+// caller's own locs_clients row. Passing an empty path clears the avatar.
+export async function updateAvatarUrl(path: string): Promise<{ ok: boolean; url?: string; error?: string }> {
+  const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { ok: false, error: 'Not signed in.' };
+
+  const clientId = await ensureClient(supabase, user);
+  if (!clientId) return { ok: false, error: 'This account is not a client account.' };
+
+  let url: string | null = null;
+  if (path) {
+    // Must live under the caller's own uid folder — mirrors the storage RLS.
+    if (!path.startsWith(`${user.id}/`)) return { ok: false, error: 'Invalid photo path.' };
+    url = supabase.storage.from('locs-avatars').getPublicUrl(path).data.publicUrl;
+  }
+
+  const { error } = await supabase.from('locs_clients').update({ avatar_url: url }).eq('id', clientId);
+  if (error) return { ok: false, error: error.message };
+
+  revalidatePath('/locs/dashboard');
+  return { ok: true, url: url ?? undefined };
+}
