@@ -42,7 +42,7 @@ export default function SignInPage() {
     const supabase = createClient();
     const { error: authError } = await supabase.auth.signInWithOtp({
       email,
-      options: { emailRedirectTo: `${window.location.origin}/locs` },
+      options: { emailRedirectTo: `${window.location.origin}/locs`, data: { tenant: 'locs' } },
     });
     setLoading(false);
     if (authError) { setError(mapAuthError(authError)); return; }

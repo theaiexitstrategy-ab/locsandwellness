@@ -26,7 +26,10 @@ export default function SignUpPage() {
     const { data, error: authError } = await supabase.auth.signUp({
       email,
       password,
-      options: { emailRedirectTo: `${window.location.origin}/locs` },
+      // tenant tags the account so the shared Send Email hook brands + sends
+      // this as "Locs and Wellness Co." (the project's Auth Site URL isn't
+      // per-tenant, so URL-based detection isn't reliable).
+      options: { emailRedirectTo: `${window.location.origin}/locs`, data: { tenant: 'locs' } },
     });
     if (authError) { setError(authError.message); setLoading(false); return; }
 
