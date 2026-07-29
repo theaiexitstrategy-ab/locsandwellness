@@ -100,10 +100,12 @@ function closeModal() {
   if (lastFocused) lastFocused.focus();
 }
 
-openQuizBtn.addEventListener('click', openModal);
-modalClose.addEventListener('click', closeModal);
+// The homepage "Take the Quiz" CTA now links to /quiz; the legacy capture modal
+// is kept only as a fallback and stays wired if its trigger is present.
+if (openQuizBtn) openQuizBtn.addEventListener('click', openModal);
+if (modalClose) modalClose.addEventListener('click', closeModal);
 // Click the dim backdrop (but not the panel) to close
-modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 // Esc closes whichever overlay is open
 document.addEventListener('keydown', (e) => {
   if (e.key !== 'Escape') return;
