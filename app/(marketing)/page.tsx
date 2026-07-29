@@ -1,38 +1,298 @@
 // © 2026 GoElev8.ai | Aaron Bryant. All rights reserved. Unauthorized use prohibited.
 //
-// locsandwellness.com homepage — the 10-section layout. Content is loaded from
-// the CMS (getSiteContent merges Leslie's saved edits over the code defaults),
-// so every field is self-editable from /admin. Empty image slots render as
-// honest labeled placeholders until she uploads.
+// locsandwellness.com homepage — REBUILT from the vanilla-HTML design in
+// public/index.html so it can be dynamic. DOM structure + class names
+// match the original 1:1 (so marketing.css doesn't have to change), but
+// content in the CMS-editable slots reads from getSiteContent() and
+// merges over the code DEFAULTS in lib/marketing/content.ts. Portal
+// edits show on the next request.
+//
+// CMS-wired slots (edited from portal.goelev8.ai Website tab):
+//   * Hero: eyebrow, headline, tagline, cta text, cta URL
+//   * Method: title (fixed here), intro line, and any per-step overrides
+//   * About: bio paragraphs, credentials list, cta text
+// Not-yet-CMS (still hardcoded — safe to migrate later):
+//   * Nav copy, mobile menu links
+//   * Loc Types & Services (4 cards)
+//   * Free Guide section
+//   * Signature block, footer, quiz modal copy
+//
+// Client-side interactions (menu, modal, quiz-lead capture) live in
+// MarketingClient.tsx which mounts once here.
 
-import Nav from '@/components/marketing/Nav';
 import { getSiteContent } from '@/lib/marketing/site';
-import {
-  Hero, QuizSection, Method, Services, ScalpWellness,
-  Products, Ebooks, About, Testimonials, FinalCTA, SiteFooter,
-} from '@/components/marketing/sections';
+import MarketingClient from './MarketingClient';
 
-// Re-read content on each request so Leslie's edits appear without a redeploy.
+// Re-read content on each request so Leslie's edits appear without a
+// redeploy.
 export const revalidate = 0;
+
+const BOOKING_URL = 'https://lawco.glossgenius.com';
 
 export default async function HomePage() {
   const c = await getSiteContent();
+
+  // Hero copy — CMS with sensible fallbacks matching public/index.html.
+  const heroHeadline = c.hero?.headline || 'Healthy locs start with a healthy foundation.';
+  const heroTagline  = c.hero?.tagline  || 'Our personalized wellness system is designed to nourish, restore, and support your loc journey — from first consultation to lasting home care.';
+  const heroCta      = c.hero?.cta      || 'Book Now';
+  const heroCtaUrl   = c.hero?.ctaUrl   || BOOKING_URL;
+
+  // Method — the title stays fixed to preserve brand voice, intro is
+  // CMS-editable. Steps come from CMS if present, otherwise fall back
+  // to the four cards in the static HTML.
+  const methodIntro = c.method?.intro || 'A calm, considered path — from first consultation to lasting home care.';
+  const methodSteps = (c.method?.steps && c.method.steps.length) ? c.method.steps : [
+    { n: '01', title: 'Scalp, Hair & Loc Wellness Assessment', body: 'In-depth microscopic scalp analysis, hair porosity test, and loc integrity evaluation.' },
+    { n: '02', title: 'Personalized Care Plan',                 body: 'Customized product, maintenance, and treatment plan built around your results.' },
+    { n: '03', title: 'The Locs + Wellness Experience',         body: 'Intentional care, customized treatments, and professional services.' },
+    { n: '04', title: 'Home Wellness Routine',                  body: 'Leave empowered with knowledge, products, and a system for your scalp, hair & loc care.' },
+  ];
+
+  // About — SiteContent.about is { title, bio: string[], certifications: string[], headshot }.
+  // We keep the code-fallback copy in sync with public/legacy-index.html
+  // so a fresh install with no saved row looks identical to the old
+  // static page.
+  const aboutBio: string[] = (Array.isArray(c.about?.bio) && c.about.bio.length) ? c.about.bio
+    : [
+        'The Locs + Wellness Co. was born from a simple belief: every loc tells a story, and my job is to honor yours.',
+        'I care for scalp, hair, and locs as one connected system — blending skilled technique with genuine wellness, so you leave feeling seen, not rushed.',
+      ];
+  const aboutCreds: string[] = (Array.isArray(c.about?.certifications) && c.about.certifications.length)
+    ? c.about.certifications
+    : ['AMCA Certified Hair Loss Practitioner', 'Certified Loctician', 'Sisterlocks™-Trained'];
+  // No CTA-label field on the About shape today; fall back to the button
+  // text baked into public/legacy-index.html.
+  const aboutCta = 'Book a Consultation';
+
   return (
     <>
-      <Nav />
-      <main>
-        <Hero data={c.hero} />
-        <QuizSection data={c.quiz} />
-        <Method data={c.method} />
-        <Services data={c.services} />
-        <ScalpWellness data={c.scalpWellness} />
-        <Products data={c.products} />
-        <Ebooks data={c.ebooks} />
-        <About data={c.about} />
-        <Testimonials data={c.testimonials} />
-        <FinalCTA data={c.finalCta} />
-      </main>
-      <SiteFooter />
+      {/* ============ NAV ============ */}
+      <nav className="nav" aria-label="Primary">
+        <button className="menu-icon" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <span></span><span></span><span></span>
+        </button>
+
+        <a href="#top" className="nav-logo" aria-label="Locs and Wellness Co. — home">Locs and Wellness Co.</a>
+
+        <a className="login-btn" href="/locs/signin">Log In</a>
+
+        <div className="mobile-menu" id="mobileMenu" aria-hidden="true">
+          <button className="mobile-menu-close" id="menuClose" aria-label="Close menu">&times;</button>
+          <a href={heroCtaUrl} target="_blank" rel="noopener" className="mobile-menu-link">Book Now</a>
+          <a href="#quiz" className="mobile-menu-link">Take the Quiz</a>
+          <a href="#gallery" className="mobile-menu-link">Services</a>
+          <a href="#guide" className="mobile-menu-link">Free Guide</a>
+          <a href="#about" className="mobile-menu-link">About</a>
+          <a href="/locs/signin" className="mobile-menu-link">Log In</a>
+        </div>
+      </nav>
+
+      {/* ============ HERO ============ */}
+      <header className="hero" id="top">
+        <div className="hero-anim">
+          <svg className="lw-logo" viewBox="0 0 340 297" role="img" aria-label="The Locs and Wellness Co. logo">
+            <defs>
+              <mask id="lwMask">
+                <path className="lw-reveal" pathLength={1}
+                  d="M193 14 C184 55 165 110 150 150 C130 190 108 218 92 240 C74 262 58 268 50 272 C34 278 30 288 58 284 C82 281 100 272 114 260 C170 247 245 246 320 256"
+                  fill="none" stroke="#fff" strokeWidth="82" strokeLinecap="round" strokeLinejoin="round" />
+              </mask>
+            </defs>
+            <image href="/images/logo-white.png" width="340" height="297" mask="url(#lwMask)" />
+          </svg>
+        </div>
+
+        <div className="hero-copy">
+          <div className="eyebrow">Holistic Scalp, Hair &amp; Loc Wellness</div>
+          <h1 dangerouslySetInnerHTML={{ __html: heroHeadline.replace(/\n/g, '<br />') }} />
+          <p style={{ whiteSpace: 'pre-line' }}>{heroTagline}</p>
+          <a className="book-btn" href={heroCtaUrl} target="_blank" rel="noopener">{heroCta}</a>
+        </div>
+      </header>
+
+      {/* ============ METHOD ============ */}
+      <section className="method" id="method">
+        <div className="section-label">How We Work</div>
+        <h2>The Locs + Wellness Method</h2>
+        <div className="sub">{methodIntro}</div>
+        <div className="method-grid">
+          {methodSteps.map((step, i) => (
+            <div className="method-card" key={i}>
+              <span className="num">{step.n || String(i + 1).padStart(2, '0')}</span>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ============ QUIZ ============ */}
+      <section className="quiz" id="quiz">
+        <div className="section-label">Find Your Starting Point</div>
+        <h2>Scalp, Hair &amp; Loc Wellness Quiz</h2>
+        <div className="sub">A two-minute assessment to build your personalized care path.</div>
+        <div className="quiz-card">
+          <a className="take-quiz-btn" href="/quiz">Take the Quiz</a>
+          <div className="note">A two-minute assessment — you&apos;ll get your personalized wellness blueprint at the end.</div>
+        </div>
+      </section>
+
+      {/* ============ LOC TYPES & SERVICES ============ */}
+      <section className="gallery" id="gallery">
+        <div className="gallery-inner">
+          <h2>Loc Types &amp; Services</h2>
+
+          <div className="loctypes-grid">
+            <article className="service-card">
+              <div className="service-img">
+                <img src="/images/loc-types/large.jpg"
+                     alt="Large locs and wics maintained with retwisting, interlocking, and crochet grooming"
+                     width={1100} height={584} loading="lazy" />
+              </div>
+              <div className="service-body">
+                <h3>Large Locs / Wics</h3>
+                <p>Large locs/Wics are maintained by retwisting, interlocking, crochet work or a customized combination of techniques. Crochet grooming is incorporated with retwisting or interlocking to collect loose hair and integrate it into the loc shaft. This provides additional reinforcement, improves structure and creates a clean, well-groomed finish while preserving the fullness and character of each loc.</p>
+                <a className="service-link" href={BOOKING_URL} target="_blank" rel="noopener">Book &rarr;</a>
+              </div>
+            </article>
+
+            <article className="service-card">
+              <div className="service-img">
+                <img src="/images/loc-types/medium.jpg"
+                     alt="Medium-sized locs maintained by retwisting or interlocking with crochet detailing for a neat, uniform finish"
+                     width={1100} height={732} loading="lazy" />
+              </div>
+              <div className="service-body">
+                <h3>Medium Locs</h3>
+                <p>Medium sized locs are maintained by retwisting or interlocking, based on your hair, lifestyle and preferred finish. For more refined grooming, crochet detailing may be added to guide loose hair back into the loc shaft. This technique helps reinforce the loc, improve its shape to create a neat and uniform finish from root to tip.</p>
+                <a className="service-link" href={BOOKING_URL} target="_blank" rel="noopener">Book &rarr;</a>
+              </div>
+            </article>
+
+            <article className="service-card">
+              <div className="service-img">
+                <img src="/images/loc-types/sisterlocks.jpg"
+                     alt="Sisterlocks and micro locs with a fine, clean grid maintained by interlocking using a low-product approach"
+                     width={1100} height={732} loading="lazy" />
+              </div>
+              <div className="service-body">
+                <h3>Sisterlocks&trade; / Micro Locs</h3>
+                <p>Sisterlocks&trade; and Microlocks require precise, detailed care to preserve their small size and clean grid. New growth is maintained by interlocking, using a no/low-product approach that helps prevent buildup and keeps the locs lightweight. Styling product may be applied around the hairline upon request for additional hold and a polished finish.</p>
+                <a className="service-link" href={BOOKING_URL} target="_blank" rel="noopener">Book &rarr;</a>
+              </div>
+            </article>
+
+            <article className="service-card">
+              <div className="service-img service-img--stack">
+                <img src="/images/loc-types/repair-1.jpg"
+                     alt="Before and after loc repair — a weakened loc reconnected and reinforced with crochet technique"
+                     width={1200} height={800} loading="lazy" />
+                <img src="/images/loc-types/repair-2.jpg"
+                     alt="Before and after loc reconstruction — a frizzy, unraveling loc restored to a clean, blended finish"
+                     width={1200} height={900} loading="lazy" />
+              </div>
+              <div className="service-body">
+                <h3>Loc Repair &amp; Reconstruction</h3>
+                <p>Whether a loc has detached, unraveled, weakened, thinned, developed uneven areas or you&apos;re looking to combine multiple locs into one, each service is customized to restore the integrity and appearance of your locs. Depending on your needs, specialized crochet and repair techniques are used to reconnect, reinforce, reshape or combine locs while creating seamless results that blend beautifully with the surrounding locs.</p>
+                <a className="service-link" href={BOOKING_URL} target="_blank" rel="noopener">Book &rarr;</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* ============ FREE GUIDE ============ */}
+      <section className="guide" id="guide">
+        <div className="guide-inner">
+          <div className="guide-cover">
+            <img src="/images/guide-cover.jpg"
+                 srcSet="/images/guide-cover.jpg 720w, /images/guide-cover@2x.jpg 1080w"
+                 sizes="(min-width: 768px) 300px, 62vw"
+                 alt="Cover of The Complete Guide to Creating a Healthy Loc Wellness System — a Locs & Wellness Co. guide"
+                 width={720} height={1080} loading="lazy" />
+          </div>
+          <div className="guide-body">
+            <div className="section-label">Free Guide</div>
+            <h2>The Complete Guide to Creating a Healthy Loc Wellness System</h2>
+            <p className="guide-tagline">Wellness is a system. Your locs are the reflection.</p>
+            <p className="guide-desc">A 14-page guide covering the 12 principles behind a thriving scalp, hair &amp; loc wellness system — the same foundation Leslie builds every client&apos;s care plan on. A Locs&nbsp;&amp;&nbsp;Wellness Co.&trade; Guide.</p>
+            <button className="btn-book-all" id="getGuide" type="button">Get the free guide</button>
+            <p className="guide-fine">Instant download — and we&apos;ll email you a copy too.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ============ ABOUT ============ */}
+      <section className="about" id="about">
+        <div className="about-inner">
+          <div className="about-photo">
+            <img src="/images/leslie.jpg" alt="Leslie Dudley, AMCA Certified Hair Loss Practitioner" width={600} height={600} loading="lazy" />
+          </div>
+          <div className="about-copy">
+            <div className="section-label">Meet Leslie</div>
+            <h2>Rooted in care, guided by wellness.</h2>
+            {aboutBio.map((para, i) => (
+              <p key={i} style={{ whiteSpace: 'pre-line' }}>{para}</p>
+            ))}
+            <ul className="about-creds">
+              {aboutCreds.map((cred, i) => <li key={i}>{cred}</li>)}
+            </ul>
+            <a className="btn-book-all" href={heroCtaUrl} target="_blank" rel="noopener">{aboutCta}</a>
+          </div>
+        </div>
+      </section>
+
+      {/* ============ FOOTER SIGNATURE ============ */}
+      <section className="signature-block">
+        <a href="#top" className="footer-logo" aria-label="The Locs + Wellness Co.">
+          <img src="/images/logo-white.png" alt="The Locs + Wellness Co." width={340} height={297} />
+        </a>
+        <p>Overall Wellness</p>
+      </section>
+
+      <div className="footer-credit">
+        Site by <a href="https://goelev8.ai" target="_blank" rel="noopener">GoElev8.ai</a>
+      </div>
+
+      {/* ============ QUIZ MODAL ============ */}
+      <div className="modal-overlay" id="quizModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div className="modal">
+          <button className="modal-close" id="modalClose" aria-label="Close">&times;</button>
+
+          <div className="modal-body" id="modalIntro">
+            <div className="section-label">Almost There</div>
+            <h2 className="modal-title" id="modalTitle">Get your free guide</h2>
+            <p className="modal-copy">Enter your name and email and we&apos;ll send you <em>The Complete Guide to Creating a Healthy Loc Wellness System</em> — plus an instant download.</p>
+
+            <form id="captureForm" noValidate>
+              <label className="field">
+                <span className="field-label">First name</span>
+                <input type="text" name="name" id="fName" autoComplete="given-name" required />
+              </label>
+              <label className="field">
+                <span className="field-label">Email</span>
+                <input type="email" name="email" id="fEmail" autoComplete="email" required />
+              </label>
+              <p className="form-error" id="formError" role="alert" hidden></p>
+              <button type="submit" className="take-quiz-btn modal-submit" id="captureSubmit">Send me the guide</button>
+              <p className="form-fine">We&apos;ll only use this to send your guide. No spam.</p>
+            </form>
+          </div>
+
+          <div className="modal-body" id="modalThanks" hidden>
+            <div className="section-label">You&apos;re In</div>
+            <h2 className="modal-title">Your guide is downloading.</h2>
+            <p className="modal-copy" id="thanksCopy">Thanks! Your guide is on its way.</p>
+            <a className="take-quiz-btn modal-submit" id="guideDownload"
+               href="/guides/The-Complete-Guide-to-a-Healthy-Loc-Wellness-System.pdf"
+               download="The-Complete-Guide-to-Creating-a-Healthy-Loc-Wellness-System.pdf">Download the guide</a>
+          </div>
+        </div>
+      </div>
+
+      {/* Client-side interactions (menu, modal, quiz-lead capture). */}
+      <MarketingClient />
     </>
   );
 }

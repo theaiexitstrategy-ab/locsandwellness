@@ -24,11 +24,16 @@ const nextConfig = {
     return {
       // beforeFiles runs before the public/ filesystem check, so these
       // destinations resolve to the static .html files kept in public/.
+      //
+      // The '/' → '/index.html' rewrite was REMOVED on 2026-07-29 because
+      // it shadowed the Next.js (marketing)/page.tsx server component,
+      // which is the only path that reads the CMS-backed content from
+      // locs_site_content. With the rewrite in place, Leslie's edits in
+      // the portal Website tab were never rendered on the live site.
+      // The old static HTML now lives at public/legacy-index.html as a
+      // reference; the design/interactions were ported into (marketing)/
+      // page.tsx and MarketingClient.tsx.
       beforeFiles: [
-        // Homepage is the vanilla static build in public/ (index.html +
-        // style.css + script.js + images/). This shadows the old (marketing)
-        // route. public/home.html is kept as a legacy backup.
-        { source: '/', destination: '/index.html' },
         // The /merch storefront stays as static HTML.
         { source: '/merch', destination: '/merch/index.html' },
       ],
