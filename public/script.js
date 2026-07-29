@@ -24,7 +24,7 @@ async function saveLead(lead) {
       'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
       'Prefer': 'return=minimal',
     },
-    body: JSON.stringify({ name: lead.name, email: lead.email, source: 'website_quiz' }),
+    body: JSON.stringify({ name: lead.name, email: lead.email, source: lead.source || 'website_quiz' }),
   });
   if (!res.ok) {
     const detail = await res.text().catch(() => '');
@@ -100,8 +100,10 @@ function closeModal() {
   if (lastFocused) lastFocused.focus();
 }
 
-// The homepage "Take the Quiz" CTA now links to /quiz; the legacy capture modal
-// is kept only as a fallback and stays wired if its trigger is present.
+// The homepage "Take the Quiz" CTA links to /quiz; the capture modal is now the
+// gate for the free guide download ("Get the free guide").
+const getGuideBtn = $('#getGuide');
+if (getGuideBtn) getGuideBtn.addEventListener('click', openModal);
 if (openQuizBtn) openQuizBtn.addEventListener('click', openModal);
 if (modalClose) modalClose.addEventListener('click', closeModal);
 // Click the dim backdrop (but not the panel) to close
@@ -124,22 +126,22 @@ captureForm.addEventListener('submit', async (e) => {
   if (!isEmail(email)) return showError('Please enter a valid email address.');
 
   submitBtn.disabled = true;
-  submitBtn.textContent = 'Saving…';
+  submitBtn.textContent = 'Sending…';
 
   try {
-    await saveLead({ name, email });
-    // Capture succeeded → hand off to the quiz.
+    await saveLead({ name, email, source: 'guide_download' });
+    // Capture succeeded → reveal the download and start it automatically.
     modalIntro.hidden = true;
     modalThanks.hidden = false;
     $('#thanksCopy').textContent =
-      `Thanks, ${name.split(' ')[0]}! Your Scalp, Hair & Loc Wellness Quiz is on its way to ${email}.`;
-    // TODO: mount the actual quiz questions here (or redirect to the quiz flow).
+      `Thanks, ${name.split(' ')[0]}! Your guide is downloading now — we've also emailed a copy to ${email}.`;
+    downloadGuide();
   } catch (err) {
     console.error(err);
-    showError('Something went wrong saving your info. Please try again.');
+    showError('Something went wrong. Please try again.');
   } finally {
     submitBtn.disabled = false;
-    submitBtn.textContent = 'Start the Quiz';
+    submitBtn.textContent = 'Send me the guide';
   }
 });
 
@@ -149,16 +151,16 @@ function showError(msg) {
 }
 
 /* -----------------------------------------------------------------
-   Ebook "Get the guide" buttons — placeholders until real ebook
-   links/files exist. Prevent the empty href="#" from jumping to top.
-   Swap each anchor's href for the real download / checkout URL and
-   this guard becomes a no-op.
+   Free guide download. Same-origin file, so the download attribute
+   controls the saved filename shown to the user.
    ----------------------------------------------------------------- */
-document.querySelectorAll('a[data-ebook]').forEach((a) => {
-  a.addEventListener('click', (e) => {
-    if (a.getAttribute('href') === '#') {
-      e.preventDefault();
-      console.info('[ebook] link not set yet:', a.dataset.ebook);
-    }
-  });
-});
+const GUIDE_PDF  = '/guides/The-Complete-Guide-to-a-Healthy-Loc-Wellness-System.pdf';
+const GUIDE_NAME = 'The-Complete-Guide-to-Creating-a-Healthy-Loc-Wellness-System.pdf';
+function downloadGuide() {
+  const a = document.createElement('a');
+  a.href = GUIDE_PDF;
+  a.download = GUIDE_NAME;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}

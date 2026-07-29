@@ -6,6 +6,20 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // 301s so any old ebook links / past emails resolve to the consolidated guide.
+  // (The prior two "ebooks" were placeholder cards with no real download URLs,
+  // so nothing actually 404s today — these are a forward-safe catch-all.)
+  async redirects() {
+    const GUIDE = '/guides/The-Complete-Guide-to-a-Healthy-Loc-Wellness-System.pdf';
+    return [
+      { source: '/ebooks', destination: GUIDE, statusCode: 301 },
+      { source: '/ebooks/:path*', destination: GUIDE, statusCode: 301 },
+      { source: '/ebook/:path*', destination: GUIDE, statusCode: 301 },
+      { source: '/downloads/healthy-scalp-starter.pdf', destination: GUIDE, statusCode: 301 },
+      { source: '/downloads/loc-maintenance-at-home.pdf', destination: GUIDE, statusCode: 301 },
+    ];
+  },
+
   async rewrites() {
     return {
       // beforeFiles runs before the public/ filesystem check, so these

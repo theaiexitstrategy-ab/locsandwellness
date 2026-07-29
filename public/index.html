@@ -42,7 +42,7 @@
       <a href="https://lawco.glossgenius.com" target="_blank" rel="noopener" class="mobile-menu-link">Book Now</a>
       <a href="#quiz" class="mobile-menu-link">Take the Quiz</a>
       <a href="#gallery" class="mobile-menu-link">Services</a>
-      <a href="#ebooks" class="mobile-menu-link">Ebooks</a>
+      <a href="#guide" class="mobile-menu-link">Free Guide</a>
       <a href="#about" class="mobile-menu-link">About</a>
       <a href="/locs/signin" class="mobile-menu-link">Log In</a>
     </div>
@@ -178,39 +178,23 @@
     </div>
   </section>
 
-  <!-- ============ EBOOKS ============ -->
-  <section class="ebooks" id="ebooks">
-    <div class="ebooks-inner">
-      <div class="section-label">Learn With Me</div>
-      <h2>Guides &amp; Ebooks</h2>
-      <div class="sub">Care for your scalp and locs between visits — practical guides you can start today.</div>
-
-      <div class="ebooks-grid">
-        <article class="ebook-card">
-          <div class="ebook-cover">
-            <span class="ebook-kicker">Ebook</span>
-            <span class="ebook-cover-title">The Healthy Scalp Starter</span>
-            <span class="ebook-cover-brand">The Locs&nbsp;+&nbsp;Wellness Co.</span>
-          </div>
-          <div class="ebook-body">
-            <h3>The Healthy Scalp Starter</h3>
-            <p>The fundamentals of a balanced, thriving scalp — the foundation every healthy loc grows from.</p>
-            <a class="service-link" href="#" data-ebook="healthy-scalp-starter">Get the guide &rarr;</a>
-          </div>
-        </article>
-
-        <article class="ebook-card">
-          <div class="ebook-cover ebook-cover-alt">
-            <span class="ebook-kicker">Ebook</span>
-            <span class="ebook-cover-title">Loc Maintenance at Home</span>
-            <span class="ebook-cover-brand">The Locs&nbsp;+&nbsp;Wellness Co.</span>
-          </div>
-          <div class="ebook-body">
-            <h3>Loc Maintenance at Home</h3>
-            <p>A simple weekly rhythm to keep your locs strong, clean, and neat between professional visits.</p>
-            <a class="service-link" href="#" data-ebook="loc-maintenance-at-home">Get the guide &rarr;</a>
-          </div>
-        </article>
+  <!-- ============ FREE GUIDE (consolidated lead magnet) ============ -->
+  <section class="guide" id="guide">
+    <div class="guide-inner">
+      <div class="guide-cover">
+        <img src="images/guide-cover.jpg"
+             srcset="images/guide-cover.jpg 720w, images/guide-cover@2x.jpg 1080w"
+             sizes="(min-width: 768px) 300px, 62vw"
+             alt="Cover of The Complete Guide to Creating a Healthy Loc Wellness System — a Locs &amp; Wellness Co. guide"
+             width="720" height="1080" loading="lazy" />
+      </div>
+      <div class="guide-body">
+        <div class="section-label">Free Guide</div>
+        <h2>The Complete Guide to Creating a Healthy Loc Wellness System</h2>
+        <p class="guide-tagline">Wellness is a system. Your locs are the reflection.</p>
+        <p class="guide-desc">A 14-page guide covering the 12 principles behind a thriving scalp, hair &amp; loc wellness system — the same foundation Leslie builds every client&apos;s care plan on. A Locs&nbsp;&amp;&nbsp;Wellness Co.&trade; Guide.</p>
+        <button class="btn-book-all" id="getGuide" type="button">Get the free guide</button>
+        <p class="guide-fine">Instant download — and we&apos;ll email you a copy too.</p>
       </div>
     </div>
   </section>
@@ -255,9 +239,9 @@
       <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
 
       <div class="modal-body" id="modalIntro">
-        <div class="section-label">Before We Begin</div>
-        <h2 class="modal-title" id="modalTitle">Where should we send your results?</h2>
-        <p class="modal-copy">Enter your name and email to start the Scalp, Hair &amp; Loc Wellness Quiz.</p>
+        <div class="section-label">Almost There</div>
+        <h2 class="modal-title" id="modalTitle">Get your free guide</h2>
+        <p class="modal-copy">Enter your name and email and we&apos;ll send you <em>The Complete Guide to Creating a Healthy Loc Wellness System</em> — plus an instant download.</p>
 
         <form id="captureForm" novalidate>
           <label class="field">
@@ -269,16 +253,19 @@
             <input type="email" name="email" id="fEmail" autocomplete="email" required />
           </label>
           <p class="form-error" id="formError" role="alert" hidden></p>
-          <button type="submit" class="take-quiz-btn modal-submit" id="captureSubmit">Start the Quiz</button>
-          <p class="form-fine">We'll only use this to send your results. No spam.</p>
+          <button type="submit" class="take-quiz-btn modal-submit" id="captureSubmit">Send me the guide</button>
+          <p class="form-fine">We&apos;ll only use this to send your guide. No spam.</p>
         </form>
       </div>
 
-      <!-- Shown after capture succeeds. Quiz questions get built out here. -->
+      <!-- Shown after capture succeeds; the guide downloads automatically. -->
       <div class="modal-body" id="modalThanks" hidden>
         <div class="section-label">You're In</div>
-        <h2 class="modal-title">Let's find your starting point.</h2>
-        <p class="modal-copy" id="thanksCopy">Thanks! Your quiz is loading…</p>
+        <h2 class="modal-title">Your guide is downloading.</h2>
+        <p class="modal-copy" id="thanksCopy">Thanks! Your guide is on its way.</p>
+        <a class="take-quiz-btn modal-submit" id="guideDownload"
+           href="/guides/The-Complete-Guide-to-a-Healthy-Loc-Wellness-System.pdf"
+           download="The-Complete-Guide-to-Creating-a-Healthy-Loc-Wellness-System.pdf">Download the guide</a>
       </div>
     </div>
   </div>

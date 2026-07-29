@@ -145,11 +145,15 @@ export const DEFAULTS: SiteContent = {
   },
 
   ebooks: {
-    title: 'Learn with me',
-    intro: 'Guides to help you care for your scalp and locs between visits.',
+    title: 'Free Guide',
+    intro: 'One complete guide to a healthy scalp, hair & loc wellness system.',
     items: [
-      { title: 'The Healthy Scalp Starter', body: 'The fundamentals of a balanced, thriving scalp.', buttonUrl: '', cover: '' },
-      { title: 'Loc Maintenance at Home', body: 'A simple weekly rhythm to keep your locs strong.', buttonUrl: '', cover: '' },
+      {
+        title: 'The Complete Guide to Creating a Healthy Loc Wellness System',
+        body: 'Wellness is a system. Your locs are the reflection. A 14-page Locs & Wellness Co.™ guide covering the 12 principles of a healthy loc wellness system.',
+        buttonUrl: '/guides/The-Complete-Guide-to-a-Healthy-Loc-Wellness-System.pdf',
+        cover: '/images/guide-cover.jpg',
+      },
     ],
   },
 

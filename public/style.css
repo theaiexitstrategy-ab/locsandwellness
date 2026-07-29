@@ -611,6 +611,37 @@ body.no-scroll { overflow: hidden; }
 .ebooks .service-link { color: var(--gold); }
 .ebooks .service-link:hover, .ebooks .service-link:focus-visible { color: var(--white); }
 
+/* ---- FREE GUIDE (consolidated lead magnet) ---- */
+.guide { background: var(--green-deep); color: var(--white); padding: 72px 6vw; }
+.guide-inner {
+  max-width: 980px; margin: 0 auto;
+  display: flex; flex-direction: column; align-items: center; gap: 30px; text-align: center;
+}
+.guide-cover { flex-shrink: 0; }
+.guide-cover img {
+  width: 240px; max-width: 62vw; height: auto; border-radius: 6px;
+  box-shadow: 0 26px 60px -28px rgba(0,0,0,0.85);
+  border: 1px solid rgba(184,163,97,0.45);
+}
+.guide .section-label { color: var(--gold); }
+.guide h2 {
+  font-family: var(--script); font-weight: 500;
+  font-size: clamp(1.6rem, 5.5vw, 2.3rem); line-height: 1.15; color: var(--white);
+}
+.guide-tagline {
+  font-family: var(--script); font-style: italic; color: var(--gold);
+  font-size: 1.15rem; margin-top: 10px;
+}
+.guide-desc { color: rgba(250, 249, 246, 0.8); font-size: 0.98rem; line-height: 1.7; margin-top: 14px; max-width: 48ch; }
+.guide-body .btn-book-all { margin-top: 24px; }
+.guide-fine { margin-top: 12px; font-size: 0.78rem; color: rgba(250, 249, 246, 0.6); }
+@media (min-width: 768px) {
+  .guide { padding: 96px 6vw; }
+  .guide-inner { flex-direction: row; align-items: center; gap: 52px; text-align: left; }
+  .guide-cover img { width: 300px; }
+  .guide-desc { margin-left: 0; margin-right: 0; }
+}
+
 /* ---- ABOUT ---- */
 .about { background: var(--white); padding: 72px 6vw; }
 .about-inner {
