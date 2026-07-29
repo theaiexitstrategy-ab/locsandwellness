@@ -130,7 +130,13 @@ captureForm.addEventListener('submit', async (e) => {
 
   try {
     await saveLead({ name, email, source: 'guide_download' });
-    // Capture succeeded → reveal the download and start it automatically.
+    // Email a branded copy via Resend (fire-and-forget — never block the download).
+    fetch('/api/guide', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email }),
+    }).catch((err) => console.error('[guide-email]', err));
+    // Reveal the download and start it automatically.
     modalIntro.hidden = true;
     modalThanks.hidden = false;
     $('#thanksCopy').textContent =
