@@ -20,7 +20,9 @@
 import { Webhook } from 'https://esm.sh/standardwebhooks@1.0.0';
 
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY') ?? '';
-const HOOK_SECRET = Deno.env.get('SEND_EMAIL_HOOK_SECRET') ?? '';
+// Supabase provides the secret as "v1,whsec_<base64>". standardwebhooks only
+// strips a leading "whsec_", so drop the "v1," ourselves or verification 401s.
+const HOOK_SECRET = (Deno.env.get('SEND_EMAIL_HOOK_SECRET') ?? '').replace(/^v1,/, '');
 
 type Brand = {
   name: string;
@@ -90,7 +92,9 @@ Deno.serve(async (req) => {
   try {
     const wh = new Webhook(HOOK_SECRET);
     evt = wh.verify(payload, Object.fromEntries(req.headers));
-  } catch (_e) {
+  } catch (e) {
+    console.error('[send-email-hook] signature verify failed:', (e as Error)?.message,
+      '| secret set:', HOOK_SECRET.length > 0);
     return new Response(JSON.stringify({ error: 'invalid signature' }), { status: 401 });
   }
 
@@ -132,10 +136,12 @@ Deno.serve(async (req) => {
     });
     if (!res.ok) {
       const detail = await res.text().catch(() => '');
+      console.error('[send-email-hook] resend failed:', res.status, detail, '| from:', brand.from);
       return new Response(JSON.stringify({ error: `resend ${res.status} ${detail}` }), { status: 500 });
     }
     return new Response(JSON.stringify({}), { status: 200, headers: { 'Content-Type': 'application/json' } });
   } catch (e) {
+    console.error('[send-email-hook] error:', String(e));
     return new Response(JSON.stringify({ error: String(e) }), { status: 500 });
   }
 });
