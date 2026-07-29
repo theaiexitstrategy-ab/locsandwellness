@@ -86,9 +86,17 @@ export async function POST(req: NextRequest) {
   }
 
   const session = event.data?.object || {};
-  const fulfillment = session.metadata?.fulfillment;
-  if (fulfillment !== 'ebook') {
-    // A physical-merch or unrelated purchase — not ours to fulfill.
+  // Identify the ebook purchase two ways (either is sufficient):
+  //   1. metadata.fulfillment === 'ebook'  (set on the Stripe Payment Link)
+  //   2. session.payment_link === STRIPE_EBOOK_PAYMENT_LINK  (the pl_… id)
+  // #2 is a fallback in case Payment Link metadata doesn't propagate to the
+  // session's metadata on this account. Every other purchase (physical merch
+  // minted by the portal) is acknowledged and ignored.
+  const ebookPaymentLink = process.env.STRIPE_EBOOK_PAYMENT_LINK || '';
+  const isEbook =
+    session.metadata?.fulfillment === 'ebook' ||
+    (!!ebookPaymentLink && session.payment_link === ebookPaymentLink);
+  if (!isEbook) {
     return NextResponse.json({ received: true, skipped: true }, { status: 200 });
   }
 
