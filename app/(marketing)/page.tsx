@@ -165,9 +165,9 @@ export default async function HomePage() {
           <div className="loctypes-grid">
             <article className="service-card">
               <div className="service-img">
-                <img src="/images/loc-types/sisterlocks.jpg"
+                <img src="/images/loc-types/sisterlocks.png"
                      alt="Sisterlocks and micro locs with a fine, clean grid maintained by interlocking using a low-product approach"
-                     width={1100} height={732} loading="lazy" />
+                     width={1280} height={852} loading="lazy" />
               </div>
               <div className="service-body">
                 <h3>Sisterlocks&trade; / Micro Locs</h3>
@@ -204,9 +204,9 @@ export default async function HomePage() {
 
             <article className="service-card">
               <div className="service-img service-img--stack">
-                <img src="/images/loc-types/repair-1.jpg"
+                <img src="/images/loc-types/repair-1.png"
                      alt="Before and after loc repair — a weakened loc reconnected and reinforced with crochet technique"
-                     width={1200} height={800} loading="lazy" />
+                     width={1280} height={853} loading="lazy" />
                 <img src="/images/loc-types/repair-2.jpg"
                      alt="Before and after loc reconstruction — a frizzy, unraveling loc restored to a clean, blended finish"
                      width={1200} height={900} loading="lazy" />
