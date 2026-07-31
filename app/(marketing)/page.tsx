@@ -165,13 +165,13 @@ export default async function HomePage() {
           <div className="loctypes-grid">
             <article className="service-card">
               <div className="service-img">
-                <img src="/images/loc-types/large.jpg"
-                     alt="Large locs and wics maintained with retwisting, interlocking, and crochet grooming"
-                     width={1100} height={584} loading="lazy" />
+                <img src="/images/loc-types/sisterlocks.jpg"
+                     alt="Sisterlocks and micro locs with a fine, clean grid maintained by interlocking using a low-product approach"
+                     width={1100} height={732} loading="lazy" />
               </div>
               <div className="service-body">
-                <h3>Large Locs / Wics</h3>
-                <p>Large locs/Wics are maintained by retwisting, interlocking, crochet work or a customized combination of techniques. Crochet grooming is incorporated with retwisting or interlocking to collect loose hair and integrate it into the loc shaft. This provides additional reinforcement, improves structure and creates a clean, well-groomed finish while preserving the fullness and character of each loc.</p>
+                <h3>Sisterlocks&trade; / Micro Locs</h3>
+                <p>Sisterlocks&trade; and Microlocks require precise, detailed care to preserve their small size and clean grid. New growth is maintained by interlocking, using a no/low-product approach that helps prevent buildup and keeps the locs lightweight. Styling product may be applied around the hairline upon request for additional hold and a polished finish.</p>
                 <a className="service-link" href={BOOKING_URL} target="_blank" rel="noopener">Book &rarr;</a>
               </div>
             </article>
@@ -191,13 +191,13 @@ export default async function HomePage() {
 
             <article className="service-card">
               <div className="service-img">
-                <img src="/images/loc-types/sisterlocks.jpg"
-                     alt="Sisterlocks and micro locs with a fine, clean grid maintained by interlocking using a low-product approach"
-                     width={1100} height={732} loading="lazy" />
+                <img src="/images/loc-types/large.jpg"
+                     alt="Large locs and wics maintained with retwisting, interlocking, and crochet grooming"
+                     width={1100} height={584} loading="lazy" />
               </div>
               <div className="service-body">
-                <h3>Sisterlocks&trade; / Micro Locs</h3>
-                <p>Sisterlocks&trade; and Microlocks require precise, detailed care to preserve their small size and clean grid. New growth is maintained by interlocking, using a no/low-product approach that helps prevent buildup and keeps the locs lightweight. Styling product may be applied around the hairline upon request for additional hold and a polished finish.</p>
+                <h3>Large Locs / Wics</h3>
+                <p>Large locs/Wics are maintained by retwisting, interlocking, crochet work or a customized combination of techniques. Crochet grooming is incorporated with retwisting or interlocking to collect loose hair and integrate it into the loc shaft. This provides additional reinforcement, improves structure and creates a clean, well-groomed finish while preserving the fullness and character of each loc.</p>
                 <a className="service-link" href={BOOKING_URL} target="_blank" rel="noopener">Book &rarr;</a>
               </div>
             </article>
