@@ -32,7 +32,7 @@ import MarketingClient from './MarketingClient';
 // redeploy.
 export const revalidate = 0;
 
-const BOOKING_URL = 'https://lawco.glossgenius.com';
+const BOOKING_URL = 'https://lawco.glossgenius.com/services';
 
 export default async function HomePage() {
   const c = await getSiteContent();
@@ -169,7 +169,7 @@ export default async function HomePage() {
       {/* ============ LOC TYPES & SERVICES ============ */}
       <section className="gallery" id="gallery">
         <div className="gallery-inner">
-          <h2>Loc Types &amp; Services</h2>
+          <h2>Choose Your Loc Type</h2>
 
           <div className="loctypes-grid">
             <article className="service-card">
@@ -275,12 +275,12 @@ export default async function HomePage() {
           <div className="about-copy">
             <div className="section-label">Meet Leslie</div>
             <h2>Rooted in care, guided by wellness.</h2>
-            {aboutBio.map((para, i) => (
-              <p key={i} style={{ whiteSpace: 'pre-line' }}>{para}</p>
-            ))}
             <ul className="about-creds">
               {aboutCreds.map((cred, i) => <li key={i}>{cred}</li>)}
             </ul>
+            {aboutBio.map((para, i) => (
+              <p key={i} style={{ whiteSpace: 'pre-line' }}>{para}</p>
+            ))}
             <a className="btn-book-all" href={heroCtaUrl} target="_blank" rel="noopener">{aboutCta}</a>
           </div>
         </div>
