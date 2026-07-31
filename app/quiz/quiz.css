@@ -8,8 +8,9 @@
   --lw-green-800: #123A28;
   --lw-gold-500:  #C9A227;
   --lw-gold-300:  #E0C46A;
-  --lw-cream-50:  #FAF6EC;
+  --lw-cream-50:  #FAF6EC;       /* light text on dark (top bar, buttons) */
   --lw-cream-100: #F3EEE0;
+  --lw-ivory:     #F4EEE1;       /* page background (matches the rest of the site) */
   --lw-ink:       #1A1A1A;
   --lw-serif:  'Cormorant Garamond', Georgia, serif;
   --lw-script: 'Cormorant Garamond', Georgia, serif;   /* italic used as the script lockup */
@@ -19,7 +20,7 @@
 .lw-quiz * { box-sizing: border-box; margin: 0; padding: 0; }
 .lw-quiz {
   min-height: 100vh;
-  background: var(--lw-cream-50);
+  background: var(--lw-ivory);
   color: var(--lw-ink);
   font-family: var(--lw-sans);
   font-weight: 300;

@@ -7,7 +7,8 @@
 
 :root {
   --black:      #0d0f0d;
-  --white:      #faf9f6;
+  --white:      #faf9f6;         /* light text on dark sections */
+  --ivory:      #F4EEE1;         /* page / section background (matches portal + merch) */
   --green:      #4a5d3a;
   --green-deep: #2e3a24;
   --gold:       #b8a361;
@@ -23,7 +24,7 @@
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
 body {
-  background: var(--white);
+  background: var(--ivory);
   color: var(--black);
   font-family: var(--body);
   font-weight: 300;
@@ -60,7 +61,7 @@ img { display: block; max-width: 100%; height: auto; }
   align-items: center;
   gap: 8px;
   padding: 12px 5vw;
-  background: var(--white);
+  background: var(--ivory);
   border-bottom: 1px solid var(--line);
 }
 .menu-icon {
@@ -240,7 +241,7 @@ img { display: block; max-width: 100%; height: auto; }
 .quiz {
   text-align: center;
   padding: 72px 6vw 64px;
-  background: var(--white);
+  background: var(--ivory);
 }
 .quiz h2 {
   font-family: var(--script);
@@ -342,7 +343,7 @@ img { display: block; max-width: 100%; height: auto; }
 /* WELLNESS PROFILE (graphic)                                          */
 /* ==================================================================== */
 .wellness-profile {
-  background: var(--white);
+  background: var(--ivory);
   padding: 56px 6vw;
 }
 .wellness-profile-inner {
@@ -362,7 +363,7 @@ img { display: block; max-width: 100%; height: auto; }
 .gallery {
   padding: 72px 6vw 80px;
   text-align: center;
-  background: var(--white);
+  background: var(--ivory);
 }
 .gallery h2 {
   font-family: var(--script);
@@ -445,7 +446,7 @@ img { display: block; max-width: 100%; height: auto; }
 .modal-overlay.open { display: flex; align-items: stretch; justify-content: center; }
 .modal {
   position: relative;
-  background: var(--white);
+  background: var(--ivory);
   width: 100%;
   min-height: 100%;
   padding: 72px 24px 48px;
@@ -481,7 +482,7 @@ img { display: block; max-width: 100%; height: auto; }
   padding: 0 14px;
   font-family: var(--body); font-size: 1rem;
   border: 1px solid var(--line);
-  border-radius: 2px; background: var(--white); color: var(--black);
+  border-radius: 2px; background: var(--ivory); color: var(--black);
 }
 .field input:focus-visible { outline: 2px solid var(--green); outline-offset: 1px; }
 .modal-submit { width: 100%; margin-top: 4px; margin-bottom: 0; }
@@ -549,7 +550,7 @@ body.no-scroll { overflow: hidden; }
 }
 
 /* ---- SERVICES ---- */
-.services { background: var(--white); padding: 72px 6vw; }
+.services { background: var(--ivory); padding: 72px 6vw; }
 .services-inner { max-width: 1200px; margin: 0 auto; text-align: center; }
 .services .sub {
   color: rgba(13, 15, 13, 0.6);
@@ -561,7 +562,7 @@ body.no-scroll { overflow: hidden; }
 .service-card {
   display: flex; flex-direction: column;
   text-align: left;
-  background: var(--white);
+  background: var(--ivory);
   border: 1px solid var(--line);
   border-radius: 4px;
   overflow: hidden;
@@ -661,7 +662,7 @@ body.no-scroll { overflow: hidden; }
 }
 
 /* ---- ABOUT ---- */
-.about { background: var(--white); padding: 72px 6vw; }
+.about { background: var(--ivory); padding: 72px 6vw; }
 .about-inner {
   max-width: 1000px; margin: 0 auto;
   display: flex; flex-direction: column; align-items: center;

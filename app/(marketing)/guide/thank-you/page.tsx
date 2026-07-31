@@ -22,7 +22,7 @@ export default function EbookThankYou() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: '#FAF6EC',
+        background: '#F4EEE1',
         color: '#1A1A1A',
         padding: '48px 24px',
         fontFamily: '-apple-system, "Segoe UI", Helvetica, Arial, sans-serif',
