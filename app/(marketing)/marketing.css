@@ -339,6 +339,24 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 /* ==================================================================== */
+/* WELLNESS PROFILE (graphic)                                          */
+/* ==================================================================== */
+.wellness-profile {
+  background: var(--white);
+  padding: 56px 6vw;
+}
+.wellness-profile-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.wellness-profile-inner img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 10px 40px rgba(13, 15, 13, 0.08);
+}
+
+/* ==================================================================== */
 /* GALLERY                                                              */
 /* ==================================================================== */
 .gallery {

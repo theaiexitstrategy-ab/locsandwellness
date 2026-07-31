@@ -146,6 +146,15 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ============ WELLNESS PROFILE ============ */}
+      <section className="wellness-profile" id="wellness-profile">
+        <div className="wellness-profile-inner">
+          <img src="/images/wellness-profile.png"
+               alt="Your Locs & Wellness Profile™ — your first visit includes a wellness intake review, microscopic scalp imaging, locs and hair assessment, hair porosity analysis, photo documentation, a customized loc wellness plan, and progress tracking for future visits."
+               width={1280} height={915} loading="lazy" />
+        </div>
+      </section>
+
       {/* ============ QUIZ ============ */}
       <section className="quiz" id="quiz">
         <div className="section-label">Find Your Starting Point</div>
